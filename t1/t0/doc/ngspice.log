@@ -1,0 +1,10 @@
+
+Circuit: *
+
+Error on line 31 :
+  h 3 6 5 2 7.16450079517
+ unknown parameter (7.16450079517) 
+
+ngspice stopped due to error, no simulation run!
+
+ERROR: fatal error in ngspice, exit(1)
