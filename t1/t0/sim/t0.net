@@ -1,34 +1,35 @@
+LABORATORIO - 1
+******************************
+*Circuito 1:
 *
-* NGSPICE simulation script
-* BJT amp with feedback
+*7 Resistencias
+*1 fonte de tensao independente
+*1 fonte de corrente independente
+*1 fonte de tensao dependente de uma corrente
+*1 fonte de corrente dependente de uma dpp
+******************************
 *
+*Construcao do Circuito
 
-* forces current values to be saved
-.options savecurrents
+* fonte de tensao independente
+vVa v1 0 5.03993052267
 
-* supply voltage
-V  1 0 5.03993052267V
+* Resistencias(acho eu)
+R1 v1 v2 1.00377057233k
+R2 v3 v2 2.0694578747k
+R3 v2 v5 3.11494140037k
+R4 v5 0 4.19664806451k
+R5 v5 v6 3.09643940177k
+R6 0 v7 2.09919602758k
+R7 v7 v8 1.00620732709k
 
-* input voltage source
-*Vin 1 0 0.0 ac 1.0 sin(0 .1 100k)
-Vb 2 5 
-*Resistencias(acho eu)
-R1 1 2 1.00377057233k
-R2 2 3 2.0694578747k
-R3 2 5 3.11494140037k
-R4 5 0 4.19664806451k
-R5 5 6 3.09643940177k
-R6 0 7 2.09919602758k 
-R7 7 8 1.00620732709k 
+* fonte de corrente
+iId  v6 v8 1.0174579624m
 
-* supply current
-I  6 8 1.0174579624ma 
-
-*dependent sources
-*Voltage
-G  5 8 0 7 8.22132225609
-*current
-H  3 6 5 2 7.16450079517
+*fonte de tensao dependente
+gVc  v5 v8 0 v7 8.22132225609
+*fonte de corrente dependente
+HIb  v3 v6 (v2-v5) 7.16450079517
 
 .control
 op
@@ -36,9 +37,7 @@ op
 echo "********************************************"
 echo  "Operating point"
 echo "********************************************"
-print V
-print I
-print H
+print v1 v2 v3 v4 v5 v6 v7 v8
 
 .endc
 
