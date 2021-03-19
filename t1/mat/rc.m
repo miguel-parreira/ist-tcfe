@@ -1,74 +1,100 @@
 close all
 clear all
 
-%%EXAMPLE SYMBOLIC COMPUTATIONS
+printf("\n\nSYMBOLIC COMPUTATIONS:\n");
 
 pkg load symbolic
 
-syms t
-syms R
-syms C
-syms vi(t)
-syms vo(t)
-syms i(t)
+syms R1
+syms R2
+syms R3
+syms R4
+syms R5
+syms R6
+syms R7
+syms Va
+syms Id
+syms Kb
+syms Kc
 
-i(t)=C*diff(vo,t)
+one = vpa(1)
+zero = vpa(0)
 
-printf("\n\nKVL equation:\n");
+printf("\n\nMetodo das malhas:\n");
 
-vi(t) = R*i(t)+vo(t)
+A = [R1+R2+R3 , R3, 0; Kb*R3, Kb*R3-1, 0; R4, 0, R4+R6+R7-Kc]
 
-syms vo_n(t) %natural solution
-syms vo_f(t) %forced solution
+b = [Va; 0; 0]
 
-printf("\n\nSolution is of the form");
+printf("\n\nSolution:\n");
 
-v(t) = vo_n(t) + vo_f(t)
-
-printf("\n\nNatural solution:\n");
-syms A
-syms wn
-
-vi(t) = 0 %no excitation
-i_n(t) = C*diff(vo_n, t)
+A\b
 
 
-printf("\n\n Natural solution is of the form");
-vo_n(t) = A*exp(wn*t)
+%printf("\n\nNatural solution:\n");
+%syms A
+%syms wn
 
-R*i_n(t)+vo_n(t) == 0
-
-R*C*wn*vo_n(t)+vo_n(t) == 0
-
-R*C*wn+1==0
-
-solve(ans, wn)
+%vi(t) = 0 %no excitation
+%i_n(t) = C*diff(vo_n, t)
 
 
-%%EXAMPLE NUMERIC COMPUTATIONS
+%printf("\n\n Natural solution is of the form");
+%vo_n(t) = A*exp(wn*t)
 
-R=1e3 %Ohm
-C=100e-9 %F
+%R*i_n(t)+vo_n(t) == 0
 
-f = 1000 %Hz
-w = 2*pi*f; %rad/s
+%R*C*wn*vo_n(t)+vo_n(t) == 0
+
+%R*C*wn+1==0
+
+%solve(ans, wn)
+
+printf("\n\nNUMERIC COMPUTATIONS:\n");
+format long
+
+R1 = 1003.77057233
+R2 = 2069.4578747
+R3 = 3114.94140037
+R4 = 4196.64806451
+R5 = 3096.43940177
+R6 = 2099.19602758
+R7 = 1006.20732709
+Va = 5.03993052267
+Id = 0.0010174579624
+Kb = 7.16450079517
+Kc = 8.22132225609
+
+printf("\n\nMetodo das malhas:\n");
+
+A = [R1+R2+R3 , R3, 0; Kb*R3, Kb*R3-1, 0; R4, 0, R4+R6+R7-Kc]
+b = [Va; 0; 0]
+
+printf("\n\nSolution:\n");
+A\b
+
+%R=1e3 %Ohm
+%C=100e-9 %F
+
+%f = 1000 %Hz
+%w = 2*pi*f; %rad/s
 
 %time axis: 0 to 10ms with 1us steps
-t=0:1e-6:10e-3; %s
+%t=0:1e-6:10e-3; %s
 
-Zc = 1/(j*w*C)
-Cgain = Zc/(R+Zc)
-Gain = abs(Cgain)
-Phase = angle(Cgain)
+%Zc = 1/(j*w*C)
+%Cgain = Zc/(R+Zc)
+%Gain = abs(Cgain)
+%Phase = angle(Cgain)
 
-vi = 1*cos(w*t);
-vo = Gain*cos(w*t+Phase);
+%vi = 1*cos(w*t);
+%vo = Gain*cos(w*t+Phase);
 
-hf = figure ();
-plot (t*1000, vi, "g");
-hold on;
-plot (t*1000, vo, "b");
+%hf = figure ();
+%plot (t*1000, vi, "g");
+%hold on;
+%plot (t*1000, vo, "b");
 
-xlabel ("t[ms]");
-ylabel ("vi(t), vo(t) [V]");
-print (hf, "forced.eps", "-depsc");
+%xlabel ("t[ms]");
+%ylabel ("vi(t), vo(t) [V]");
+%print (hf, "forced.eps", "-depsc");
