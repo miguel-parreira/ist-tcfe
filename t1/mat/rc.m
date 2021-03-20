@@ -22,7 +22,7 @@ zero = vpa(0)
 
 printf("\n\nMetodo das malhas:\n");
 
-A = [R1+R2+R3 , R3, zero; Kb*R3, Kb*R3-one, zero; R4, zero, R4+R6+R7-Kc]
+A = [R1+R3+R4 , R3, R4; Kb*R3, Kb*R3-one, zero; R4, zero, R4+R6+R7-Kc]
 
 b = [Va; zero; zero]
 
@@ -32,13 +32,21 @@ A\b
 
 printf("\n\nMetodo dos nós:\n");
 
+syms G1
+syms G2
+syms G3
+syms G4
+syms G5
+syms G6
+syms G7
+
 A1 = [one, zero, zero, -one, zero, zero, zero, zero]
-A2 = [R1 , -R1-R2-R3, R2, zero, R3, zero, zero, zero]
-A3 = [zero, Kb+R2, -R2, zero, -Kb, zero, zero, zero]
-A4 = [-R1, R1, zero, -R6-R4, R4, zero, R6, zero]
-A5 = [zero, zero, zero, Kc*R6, -one, zero, -Kc*R6, one]
-A6 = [zero , -Kb, zero, zero, R5+Kb, -R5, zero, zero]
-A7 = [zero, zero, zero, R6, zero, zero, -R6-R7, R7]
+A2 = [G1 , -G1-G2-G3, G2, zero, G3, zero, zero, zero]
+A3 = [zero, Kb+G2, -G2, zero, -Kb, zero, zero, zero]
+A4 = [-G1, G1, zero, -G6-G4, G4, zero, G6, zero]
+A5 = [zero, zero, zero, Kc*G6, -one, zero, -Kc*G6, one]
+A6 = [zero , -Kb, zero, zero, G5+Kb, -G5, zero, zero]
+A7 = [zero, zero, zero, G6, zero, zero, -G6-G7, G7]
 A8 = [zero, zero, zero, zero, zero, zero, zero, one]
 
 A=[A1; A2; A3; A4; A5; A6; A7; A8]
@@ -87,21 +95,28 @@ Kc = 8.22132225609
 
 printf("\n\nMetodo das malhas:\n");
 
-A = [R1+R2+R3 , R3, 0; Kb*R3, Kb*R3-1, 0; R4, 0, R4+R6+R7-Kc]
+A = [R1+R3+R4 , R3, R4; Kb*R3, Kb*R3-1, 0; R4, 0, R4+R6+R7-Kc]
 b = [Va; 0; 0]
 
 printf("\n\nSolution:\n");
 A\b
 
 printf("\n\nMetodo dos nós:\n");
+G1=1/R1
+G2=1/R2
+G3=1/R3
+G4=1/R4
+G5=1/R5
+G6=1/R6
+G7=1/R7
 
 A1 = [1, 0, 0, -1, 0, 0, 0, 0]
-A2 = [R1 , -R1-R2-R3, R2, 0, R3, 0, 0, 0]
-A3 = [0, Kb+R2, -R2, 0, -Kb, 0, 0, 0]
-A4 = [-R1, R1, 0, -R6-R4, R4, 0, R6, 0]
-A5 = [0, 0, 0, Kc*R6, -1, 0, -Kc*R6, 1]
-A6 = [0 , -Kb, 0, 0, R5+Kb, -R5, 0, 0]
-A7 = [0, 0, 0, R6, 0, 0, -R6-R7, R7]
+A2 = [G1 , -G1-G2-G3, G2, 0, G3, 0, 0, 0]
+A3 = [0, Kb+G2, -G2, 0, -Kb, 0, 0, 0]
+A4 = [-G1, G1, 0, -G6-G4, G4, 0, G6, 0]
+A5 = [0, 0, 0, Kc*G6, -1, 0, -Kc*G6, 1]
+A6 = [0 , -Kb, 0, 0, G5+Kb, -G5, 0, 0]
+A7 = [0, 0, 0, G6, 0, 0, -G6-G7, G7]
 A8 = [0, 0, 0, 0, 0, 0, 0, 1]
 
 A=[A1; A2; A3; A4; A5; A6; A7; A8]
