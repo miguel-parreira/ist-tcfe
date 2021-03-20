@@ -22,9 +22,29 @@ zero = vpa(0)
 
 printf("\n\nMetodo das malhas:\n");
 
-A = [R1+R2+R3 , R3, 0; Kb*R3, Kb*R3-1, 0; R4, 0, R4+R6+R7-Kc]
+A = [R1+R2+R3 , R3, zero; Kb*R3, Kb*R3-one, zero; R4, zero, R4+R6+R7-Kc]
 
-b = [Va; 0; 0]
+b = [Va; zero; zero]
+
+printf("\n\nSolution:\n");
+
+A\b
+
+printf("\n\nMetodo dos nós:\n");
+
+A1 = [one, zero, zero, -one, zero, zero, zero, zero]
+A2 = [R1 , -R1-R2-R3, R2, zero, R3, zero, zero, zero]
+A3 = [zero, Kb+R2, -R2, zero, -Kb, zero, zero, zero]
+A4 = [-R1, R1, zero, -R6-R4, R4, zero, R6, zero]
+A5 = [zero, zero, zero, Kc*R6, -one, zero, -Kc*R6, one]
+A6 = [zero , -Kb, zero, zero, R5+Kb, -R5, zero, zero]
+A7 = [zero, zero, zero, R6, zero, zero, -R6-R7, R7]
+A8 = [zero, zero, zero, zero, zero, zero, zero, one]
+
+A=[A1; A2; A3; A4; A5; A6; A7; A8]
+
+
+b = [Va; zero; zero; zero; zero; -Id; zero; zero]
 
 printf("\n\nSolution:\n");
 
@@ -72,6 +92,24 @@ b = [Va; 0; 0]
 
 printf("\n\nSolution:\n");
 A\b
+
+printf("\n\nMetodo dos nós:\n");
+
+A1 = [1, 0, 0, -1, 0, 0, 0, 0]
+A2 = [R1 , -R1-R2-R3, R2, 0, R3, 0, 0, 0]
+A3 = [0, Kb+R2, -R2, 0, -Kb, 0, 0, 0]
+A4 = [-R1, R1, 0, -R6-R4, R4, 0, R6, 0]
+A5 = [0, 0, 0, Kc*R6, -1, 0, -Kc*R6, 1]
+A6 = [0 , -Kb, 0, 0, R5+Kb, -R5, 0, 0]
+A7 = [0, 0, 0, R6, 0, 0, -R6-R7, R7]
+A8 = [0, 0, 0, 0, 0, 0, 0, 1]
+
+A=[A1; A2; A3; A4; A5; A6; A7; A8]
+b = [Va; 0; 0; 0; 0; -Id; 0; 0]
+
+printf("\n\nSolution:\n");
+A\b
+
 
 %R=1e3 %Ohm
 %C=100e-9 %F
