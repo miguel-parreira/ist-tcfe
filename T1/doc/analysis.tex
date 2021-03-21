@@ -9,15 +9,15 @@ theoretically, in terms of node and mesh analysis.
 The circuit consists of four meshes named A,B,C and D. Looking at mesh A and considering the Kirchhoff Voltage Law (KVL), an equation for the single loop in the circuit can be written as:
 
 \begin{equation}
-  V_a= R_1(I_A) + R_3(I_A + I_B) + R_4(I_A + I_C) 
+  V_a= R_1(I_A) + R_3(I_A + I_B) + R_4(I_A + I_C)
   \label{eq:MeshA}
 \end{equation}
 
-In the calculation of voltage drop in $R_{3}$, the total current through $R_{3}$ is a combination of the currents in mesh A and mesh B. The same goes to $R_{4}$ and any element that is common to two meshes. 
+In the calculation of voltage drop in $R_{3}$, the total current through $R_{3}$ is a combination of the currents in mesh A and mesh B. The same goes to $R_{4}$ and any element that is common to two meshes.
 
 Continuing to mesh C, the equation is:
 \begin{equation}
-  V_c= K_c\times I_C= R_4(I_A + I_C) + R_6(I_C) + R_7(I_C) 
+  V_c= K_c\times I_C= R_4(I_A + I_C) + R_6(I_C) + R_7(I_C)
   \label{eq:MeshC}
 \end{equation}
 
@@ -40,20 +40,20 @@ And for mesh D is:
 Solving the linear system:
 
 $$
-\begin{bmatrix} 
+\begin{bmatrix}
 R_1+R_3+R_4       &   R_3       & R_4     &   0       \\
 K_b \times R_3       &   K_b \times R_3-1       & 0    &   0      \\
-R_4  &  0  &   R_4+R_6+R_7-K_c  &   0 \\   
+R_4  &  0  &   R_4+R_6+R_7-K_c  &   0 \\
 0       &   0      & 0    &   1      \\
 \end{bmatrix}
-\begin{bmatrix} 
+\begin{bmatrix}
 I_A     \\
 I_B    \\
 I_C   \\
 I_D     \\
 \end{bmatrix}
 =
-\begin{bmatrix} 
+\begin{bmatrix}
 V_a   \\
 0    \\
 0  \\
@@ -71,12 +71,12 @@ The results are:
 
 \label{tab:tables}
 \begin{center}
-\begin{tabular}{|c|c|} 
+\begin{tabular}{|c|c|}
  \hline
   Mesh Current & Value\hspace{1mm}(mA)\\
  \hline
  $I_{A}$ & 1.809244100051636 \\
- \hline 
+ \hline
  $I_{B}$ &-1.809325173903972\\
  \hline
  $I_{C}$ &-1.040984044022358\\
@@ -88,7 +88,7 @@ The results are:
 \label{table:tab2}
 \end{center}
 \end{table}
- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%       
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Node Analysis Method}
 
@@ -134,20 +134,20 @@ Noticing that the current through $V_a$ is the same as the one through R1, the e
   \label{eq:Node5}
 \end{equation}
 
-Solving the linear system: 
+Solving the linear system:
 %%MATRIZES%
 $$
-\begin{bmatrix} 
+\begin{bmatrix}
 1  &  0 & 0 & -1 & 0 & 0 & 0 & 0       \\
 G_1 & -G_1-G_2-G_3 & G_2 & 0 & G_3 & 0 & 0 & 0      \\
-0 & K_b+G_2 & -G_2 & 0 & -K_b & 0 & 0 & 0\\   
+0 & K_b+G_2 & -G_2 & 0 & -K_b & 0 & 0 & 0\\
 -G_1 & G_1 & 0  & -G_6-G_4 & G_4 & 0 & G_6 & 0      \\
 0 & 0 & 0 & K_c \times G_6 & -1 & 0 & -K_c \times G_6 & 1 \\
 0 & -K_b & 0 & 0 & G_5+K_b & -G_5 & 0 & 0 \\
 0&0&0&G_6&0&0&-G_6-G_7&G_7\\
 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1\\
 \end{bmatrix}
-\begin{bmatrix} 
+\begin{bmatrix}
 V_1     \\
 V_2    \\
 V_3   \\
@@ -158,7 +158,7 @@ V_7     \\
 V_8     \\
 \end{bmatrix}
 =
-\begin{bmatrix} 
+\begin{bmatrix}
 V_a   \\
 0    \\
 0  \\
@@ -178,42 +178,32 @@ The results are:
 
 \label{tab:tables}
 \begin{center}
-\begin{tabular}{|c|c|} 
+\begin{tabular}{|c|c|}
  \hline
- 
+
   Node Voltage & Value\hspace{1mm}(V)\\
  \hline
  $V_{1}$ & 1.807255180205026 \\
-  \hline   
+  \hline
  $V_{2}$ & -8.810805588482041e-03\\
   \hline
  $V_{3}$ & -3.753133034617004\\
   \hline
  $V_{4}$ & -3.232675342464974\\
   \hline
- $V_{5}$ & -8.558265289355584e-03\\ 
+ $V_{5}$ & -8.558265289355584e-03\\
   \hline
  $V_{6}$ & 8.744404418221231\\
   \hline
  $V_{7}$ & -1.047445772479076\\
   \hline
  $V_{8}$ & 0.000000000000000 \\
-    
- 
+
+
  \hline
 \end{tabular}
 \caption{Solutions to Mesh Analysis Method}
 \label{table:tab2}
 \end{center}
 \end{table}
- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    
-
-
-
-
-
-
-
-
-
-
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

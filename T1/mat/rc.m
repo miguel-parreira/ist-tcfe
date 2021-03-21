@@ -107,7 +107,11 @@ b = [Va; 0; 0; 0; 0; -Id; 0; 0]
 printf("\n\nSolution:\n");
 v=A\b
 
+filename=fopen("valoresoctaveCurrent.tex", "w+");
+fprintf(filename, "I_A & %.15f \\hline \nI_B & %.15f \\hline \nI_C & %.15f \\hline \nI_D & %.15f \\hline \n" ,  i(1), i(2), i(3), Id);
+fclose(filename);
 
 
-
-
+filename=fopen("valoresoctaveVoltage.tex", "w+");
+fprintf(filename, "V_1 & %.15f \\hline \nV_2 & %.15f \\hline \nV_3 & %.15f \\hline \nV_4 & %.15f \\hline \nV_5 & %.15f \\hline \nV_6 & %.15f \\hline \nV_7 & %.15f \\hline \nV_8 & %.15f \\hline \n",  v(1), v(2), v(3), v(4), v(5), v(6), v(7), v(8) );
+fclose(filename);
