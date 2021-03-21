@@ -37,44 +37,58 @@ And for mesh D is:
   \label{eq:MeshD}
 \end{equation}
 
-Solving the linear system: 
+Solving the linear system:
 
-\begin{bmatrix} R1+R3+R4 & R3 & R4 & 0 \\Kb\times R3 & Kb\times R3-1 & 0 & 0 \\ R4 & 0 & R4+R6+R7-Kc & 0\\ 0 & 0 & 0 & 1 \\\end{bmatrix} \times \left[ \begin{array}{c} I_{A} \\ I_{B}\\ I_{C}\\ I_{D}  \end{array} \right] =  \left[ \begin{array}{cc} V_{a}\\ 0\\ 0\\ I_{d} \end{array} \right]
-
-
+$$
+\begin{bmatrix} 
+R_1+R_3+R_4       &   R_3       & R_4     &   0       \\
+K_b \times R_3       &   K_b \times R_3-1       & 0    &   0      \\
+R_4  &  0  &   R_4+R_6+R_7-K_c  &   0 \\   
+0       &   0      & 0    &   1      \\
+\end{bmatrix}
+\begin{bmatrix} 
+I_A     \\
+I_B    \\
+I_C   \\
+I_D     \\
+\end{bmatrix}
+=
+\begin{bmatrix} 
+V_a   \\
+0    \\
+0  \\
+I_d   \\
+\end{bmatrix}
+\quad
+$$
 
 
 The results are:
 
 %%%%%%%%TABELA%%%%%%%%%%%%%%%%%%%%%%
-\begin{table}[H]
+\begin{table}[h]
 
 
 \label{tab:tables}
 \begin{center}
 \begin{tabular}{|c|c|} 
  \hline
- \rowcolor{gray!50}
   Mesh Current & Value\hspace{1mm}(mA)\\
  \hline
- I_{A} & 1.809244100051636 \\
-     \rowcolor{LightGray}
- I_{B} &-1.809325173903972\\
- I_{C} &-1.040984044022358\\
- \rowcolor{LightGray}
- I_{D} &1.017457962400000\\
-  \rowcolor{LightGray}
-
-    
- 
-
+ $I_{A}$ & 1.809244100051636 \\
+ \hline 
+ $I_{B}$ &-1.809325173903972\\
+ \hline
+ $I_{C}$ &-1.040984044022358\\
+ \hline
+ $I_{D}$ &1.017457962400000\\
  \hline
 \end{tabular}
 \caption{Solutions to Mesh Analysis Method}
 \label{table:tab2}
 \end{center}
 \end{table}
- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%                               
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%       
 
 \subsection{Node Analysis Method}
 
@@ -121,37 +135,69 @@ Noticing that the current through $V_a$ is the same as the one through R1, the e
 \end{equation}
 
 Solving the linear system: 
-
-%\begin{bmatrix} R1+R3+R4 & R3 & R4 & 0 \\Kb\times R3 & Kb\times R3-1 & 0 & 0 \\ R4 & 0 & R4+R6+R7-Kc & 0\\ 0 & 0 & 0 & 1 \\\end{bmatrix} \times \left[ \begin{array}{c} I_{A} \\ I_{B}\\ I_{C}\\ I_{D}  \end{array} \right] =  \left[ \begin{array}{cc} V_{a}\\ 0\\ 0\\ I_{d} \end{array} \right]
-%(REVER ISTO)
-
-
+%%MATRIZES%
+$$
+\begin{bmatrix} 
+1  &  0 & 0 & -1 & 0 & 0 & 0 & 0       \\
+G_1 & -G_1-G_2-G_3 & G_2 & 0 & G_3 & 0 & 0 & 0      \\
+0 & K_b+G_2 & -G_2 & 0 & -K_b & 0 & 0 & 0\\   
+-G_1 & G_1 & 0  & -G_6-G_4 & G_4 & 0 & G_6 & 0      \\
+0 & 0 & 0 & K_c \times G_6 & -1 & 0 & -K_c \times G_6 & 1 \\
+0 & -K_b & 0 & 0 & G_5+K_b & -G_5 & 0 & 0 \\
+0&0&0&G_6&0&0&-G_6-G_7&G_7\\
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 1\\
+\end{bmatrix}
+\begin{bmatrix} 
+V_1     \\
+V_2    \\
+V_3   \\
+V_4     \\
+V_5     \\
+V_6     \\
+V_7     \\
+V_8     \\
+\end{bmatrix}
+=
+\begin{bmatrix} 
+V_a   \\
+0    \\
+0  \\
+0  \\
+0  \\
+-I_d   \\
+0  \\
+0  \\
+\end{bmatrix}
+\quad
+$$
 The results are:
 
 %%%%%%%%TABELA%%%%%%%%%%%%%%%%%%%%%%
-\begin{table}[H]
+\begin{table}[h]
 
 
 \label{tab:tables}
 \begin{center}
 \begin{tabular}{|c|c|} 
  \hline
- \rowcolor{gray!50}
+ 
   Node Voltage & Value\hspace{1mm}(V)\\
  \hline
- V_{1} & 1.807255180205026 \\
-     \rowcolor{LightGray}
- V_{2} & -8.810805588482041\times $10^{-3}$ \\
- V_{3} & -3.753133034617004\\
- \rowcolor{LightGray}
- V_{4} & -3.232675342464974\\
- 
- V_{5} & -8.558265289355584e\times $10^{-3}$ \\ 
- \rowcolor{LightGray}
- V_{6} & 8.744404418221231\\
- V_{7} & -1.047445772479076\\
- \rowcolor{LightGray}
- V_{8} & 0.000000000000000 \\
+ $V_{1}$ & 1.807255180205026 \\
+  \hline   
+ $V_{2}$ & -8.810805588482041e-03\\
+  \hline
+ $V_{3}$ & -3.753133034617004\\
+  \hline
+ $V_{4}$ & -3.232675342464974\\
+  \hline
+ $V_{5}$ & -8.558265289355584e-03\\ 
+  \hline
+ $V_{6}$ & 8.744404418221231\\
+  \hline
+ $V_{7}$ & -1.047445772479076\\
+  \hline
+ $V_{8}$ & 0.000000000000000 \\
     
  
  \hline
@@ -160,13 +206,12 @@ The results are:
 \label{table:tab2}
 \end{center}
 \end{table}
- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%      
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    
 
-\begin{figure}[h] \centering
-\includegraphics[width=0.8\linewidth]{forced.eps}
-\caption{Forced sinusoidal response.}
-\label{fig:forced}
-\end{figure}
+
+
+
+
 
 
 

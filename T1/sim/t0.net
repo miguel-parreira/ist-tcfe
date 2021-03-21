@@ -1,0 +1,68 @@
+LABORATORIO - 1
+******************************
+*Circuito 1:
+
+*7 Resistencias
+*1 fonte de tensao independente
+*1 fonte de corrente independente
+*1 fonte de tensao dependente de uma corrente
+*1 fonte de corrente dependente de uma dpp
+******************************
+*Construcao do Circuito
+
+* forces current values to be saved
+.options savecurrents
+
+
+
+* fonte de tensao independente
+va v1 v4 5.03993052267
+
+* Resistencias(acho eu)
+R1 v1 v2 1.00377057233k
+R2 v3 v2 2.0694578747k
+R3 v2 v5 3.11494140037k
+R4 v5 v4 4.19664806451k
+R5 v5 v6 3.09643940177k
+R6 vaux v7 2.09919602758k
+R7 v7 GND 1.00620732709k
+
+* fonte de corrente
+id  GND v6 1.0174579624m
+
+*fonte de tensao dependente
+vamp v4 vaux 0
+hVc  v5 GND vamp 8.22132225609
+
+*fonte de corrente dependente
+gVc v6 v3 v2 v5 7.16450079517
+
+******************************
+*Simulacao
+
+
+
+
+.control
+
+
+
+op
+
+echo "********************************************"
+echo  "Operating point"
+echo "********************************************"
+
+
+
+echo  "op_TAB"
+print all
+echo  "op_END"
+
+
+
+
+quit
+.endc
+
+.end

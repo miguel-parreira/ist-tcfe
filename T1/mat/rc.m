@@ -31,7 +31,6 @@ printf("\n\nSolution:\n");
 A\b
 
 printf("\n\nMetodo dos nós:\n");
-
 syms G1
 syms G2
 syms G3
@@ -39,6 +38,7 @@ syms G4
 syms G5
 syms G6
 syms G7
+
 
 A1 = [one, zero, zero, -one, zero, zero, zero, zero]
 A2 = [G1 , -G1-G2-G3, G2, zero, G3, zero, zero, zero]
@@ -50,7 +50,6 @@ A7 = [zero, zero, zero, G6, zero, zero, -G6-G7, G7]
 A8 = [zero, zero, zero, zero, zero, zero, zero, one]
 
 A=[A1; A2; A3; A4; A5; A6; A7; A8]
-
 
 b = [Va; zero; zero; zero; zero; -Id; zero; zero]
 
@@ -82,7 +81,7 @@ A = [R1+R3+R4 , R3, R4; Kb*R3, Kb*R3-1, 0; R4, 0, R4+R6+R7-Kc]
 b = [Va; 0; 0]
 
 printf("\n\nSolution:\n");
-A\b
+i=A\b
 
 printf("\n\nMetodo dos nós:\n");
 G1=1/R1
@@ -106,31 +105,9 @@ A=[A1; A2; A3; A4; A5; A6; A7; A8]
 b = [Va; 0; 0; 0; 0; -Id; 0; 0]
 
 printf("\n\nSolution:\n");
-A\b
+v=A\b
 
 
-%R=1e3 %Ohm
-%C=100e-9 %F
 
-%f = 1000 %Hz
-%w = 2*pi*f; %rad/s
 
-%time axis: 0 to 10ms with 1us steps
-%t=0:1e-6:10e-3; %s
 
-%Zc = 1/(j*w*C)
-%Cgain = Zc/(R+Zc)
-%Gain = abs(Cgain)
-%Phase = angle(Cgain)
-
-%vi = 1*cos(w*t);
-%vo = Gain*cos(w*t+Phase);
-
-%hf = figure ();
-%plot (t*1000, vi, "g");
-%hold on;
-%plot (t*1000, vo, "b");
-
-%xlabel ("t[ms]");
-%ylabel ("vi(t), vo(t) [V]");
-%print (hf, "forced.eps", "-depsc");
