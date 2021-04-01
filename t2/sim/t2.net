@@ -32,7 +32,11 @@ gVc v6 v3 v2 v5 7.2545889117m
 
 *fonte de tensao dependente
 vamp v7 vaux 0
+<<<<<<< HEAD
 hVc  v5 v8  vamp  8.1158893784k
+=======
+hVc  v5 v8 vamp 8.1158893784
+>>>>>>> c746860b3efed4b9a1427fe4d03a8d0dd92b348d
 
 * input capacitor (
 Cc v6 v8 1.02324790788uF
