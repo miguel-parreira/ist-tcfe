@@ -28,15 +28,15 @@ R7 vaux v8 1.02936604691k
 
 
 *fonte de corrente dependente
-gVc v6 v3 v2 v5 7.2545889117
+gVc v6 v3 v2 v5 7.2545889117m
 
 *fonte de tensao dependente
 vamp v7 vaux 0
-hVc  v5 v8  vamp  8.1158893784
+hVc  v5 v8  vamp  8.1158893784k
 
 * Voltage Source Vx 
 
-Vx v6 v8 5.512486
+Vx v6 v8 
 
 ******************************
 *Simulacao
