@@ -1,8 +1,9 @@
-octave.log: rc.m data.txt
+octave.log: rc.m data
 	octave $< > $@
 
-data.txt:
+data:
 	cd .. && cp -a data.txt ./mat
+# && cd mat && mv data.txt data.mat
 
 clean:
 	@rm -f octave.log octave-workspace *.eps *~

@@ -15,10 +15,10 @@ class Var:
         self.val = val + random.random()*(val*float(tol)/100)
 
     def printVar(self):
-        print self.name, "=", self.val, "\n",
+        print self.name, "=", self.val,"\n",
 
     def printVar0(self):
-        print self.name, "=", self.val, "\n",
+        print self.val,"\n",
 
 class Prob:
     def __init__(self, number, weight):
