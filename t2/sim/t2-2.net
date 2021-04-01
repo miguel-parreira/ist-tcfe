@@ -14,7 +14,7 @@ LABORATORIO - 1
 .options savecurrents
 
 * fonte de tensao independente
-Vs v1 GND 5.05144255975
+Vs v1 GND 0
 *Vs = 5.05144255975
 
 * Resistencias
@@ -34,7 +34,7 @@ gVc v6 v3 v2 v5 7.2545889117m
 vamp v7 vaux 0
 hVc  v5 v8  vamp  8.1158893784k
 
-* Voltage Source Vx 
+* Voltage Source Vx
 
 Vx v6 v8 8.548005
 
