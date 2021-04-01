@@ -36,7 +36,7 @@ hVc  v5 v8  vamp  8.1158893784k
 
 * Voltage Source Vx 
 
-Vx v6 v8 
+Vx v6 v8 8.548005
 
 ******************************
 *Simulacao
@@ -52,15 +52,14 @@ op
 
 
 
-
 echo "********************************************"
 echo  "Operating point"
 echo "********************************************"
 
 
-echo  "op_TAB"
+echo  "op2_TAB"
 print all
-echo  "op_END"
+echo  "op2_END"
 
 
 
