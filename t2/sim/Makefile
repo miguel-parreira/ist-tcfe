@@ -13,6 +13,7 @@ ngspice2.log: ../sim/t2-2.net
 
 
 clean:
-	@rm -f ngspice.log *.tex *.pdf *.ps *~
+	@rm -f ngspice1.log *.tex *.pdf *.ps *~
+	@rm -f ngspice2.log *.tex *.pdf *.ps *~
 
 .PHONY: all clean
