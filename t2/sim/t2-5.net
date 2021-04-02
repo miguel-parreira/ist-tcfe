@@ -6,34 +6,26 @@
 * forces current values to be saved
 .options savecurrents
 
-* supply voltage
-Vcc vcc 0 10.0
 
-* input voltage source
-Vin 1 0 0.0 ac 1.0 sin(0 .1 100k)
+R1 v1 v2 1.02815650737k
+R2 v3 v2 2.07414279923k
+R3 v2 v5 3.06367122238k
+R4 v5 GND 4.06922855851k
+R5 v5 v6 3.03804085665k
+R6 GND v7 2.05484565321k
+R7 vaux v8 1.02936604691k
+Vs v1 GND 1 ac 1 sin(0 1 1k 0 0 0)
+vamp v7 vaux 0
+hVc  v5 v8  vamp  8.1158893784k
+gVc v6 v3 v2 v5 7.2545889117m
 
-Rs 1 2 1k
+Cc v6 v8 1.02324790788uF
+*.ac dec 10 0.1 1MEG
 
-* input capacitor (DC block)
-Cb 2 base 1uF
-
-Rf coll base 50k
-
-Q1 coll base emit P2model
-
-Rc vcc coll 300
-
-Re emit 0 100
-
-Ce emit 0 10uF
-
-.model P2model NPN(Bf=200, CJE=12pF, CJC=2pF)
-
-.op
-
-.end
 
 .control
+
+
 
 *makes plots in color
 set hcopypscolor=0
@@ -45,47 +37,30 @@ set color4=violet
 set color5=rgb:3/8/0
 set color6=rgb:4/0/0
 
-op
-
-echo "********************************************"
-echo  "Operating point"
-echo "********************************************"
-print Vcc
-print @Q1[ic]
-print @Rf[i]
-
-echo  "op_TAB"
-print all
-echo  "op_END"
-
 
 echo "********************************************"
 echo  "Transient analysis"
 echo "********************************************"
-tran 1e-5 10e-3
+tran 1e-5 20e-3
 
-hardcopy trans.ps v(coll) v(base)
+hardcopy trans6.ps v(v6) v(v1)
 echo trans_FIG
 
 echo "********************************************"
 echo  "Frequency analysis"
 echo "********************************************"
 
-ac dec 10 10 100MEG
+ac dec 10 0.1 100MEG
 
-hardcopy acm.ps db(v(coll)) v(base)
+hardcopy acm.ps db(v(v6)) db(v(v1))
 echo acm_FIG
-hardcopy acp.ps v(base)
+hardcopy acp.ps v(v1)
 echo acp_FIG
 
-*plot db(v(coll))
-*plot vp(coll)
+plot db(v(v6))
+plot v(v6)
 
-echo "********************************************"
-echo  "Input impedance"
-echo "********************************************"
-
-hardcopy zim.ps abs(v(coll)/((v(1)-v(2))/1k))
-echo zim_FIG
-
+quit
 .endc
+
+.end

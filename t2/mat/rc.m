@@ -152,5 +152,3 @@ print (f3, "v6.eps", "-depsc");
 
 printf("\n\n---->Ponto 6 - Estudo frequência:\n");
 w=0:1:1e6;
-
-Vc = 1/(1+j*w*Tau);
