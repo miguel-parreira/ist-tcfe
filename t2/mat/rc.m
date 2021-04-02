@@ -72,7 +72,7 @@ A9 = [0, 0, 0, 0, 0, -1, 0, 1, 0]
 A=[A1; A2; A3; A4; A5; A6; A7; A8; A9]
 b = [0; 0; 0; 0; 0; 0; 0; 0; Vx]
 
-printf("\n\nSolution: (v1-v8)\n");
+printf("\n\nSolution: (v1-v8,Ix)\n");
 v2=A\b
 Req = (v2(8)-v2(6))/v2(9)
 Tau = Req*1000*C*1e-6 %Ohm*F
@@ -81,8 +81,8 @@ printf("\n\n---->Ponto 3 - V6 natural:\n");
 %time axis: 0 to 20ms with 1us steps
 t=0:1e-6:20e-3; %s
 
-v6_n = v2(6)*exp(-t/Tau)
-v8_n = v2(8)*exp(-t/Tau)
+v6_n = v2(6)*exp(-t/Tau);
+v8_n = v2(8)*exp(-t/Tau);
 
 f = figure ();
 plot (t*1000, v6_n, "g");
@@ -95,7 +95,6 @@ printf("\n\n---->Ponto 4 - V6 forçada:\n");
 w = 2*pi*1000
 Zc = 1/(j*C*w)
 Gc = 1/Zc
-Vs = 1;
 
 A1 = [1, 0, 0, 0, 0, 0, 0, 0]
 A2 = [-G1, G1+G2+G3, -G2, 0, -G3, 0, 0, 0]
@@ -107,27 +106,51 @@ A7 = [0, 0, 0, G6, 0, 0, -G6-G7, G7]
 A8 = [0, 0, 0, -Kd*G6, 1, 0, Kd*G6, -1]
 
 A=[A1; A2; A3; A4; A5; A6; A7; A8]
-b = [Vs; 0; 0; 0; 0; 0; 0; 0]
+b = [1; 0; 0; 0; 0; 0; 0; 0]
 
 printf("\n\nSolution: (v1-v8)\n");
 v3=A\b
 
-Gain = abs(v3(6))
-Phase = angle(v3(6))
+Gain6 = abs(v3(6))
+Phase6 = angle(v3(6))
 
-v6_fcos = Gain*cos(w*t+Phase)
-v6_fsin = Gain*sin(w*t+Phase)
-
-f1 = figure ();
-plot (t*1000, v6_fcos, "g");
-
-xlabel ("t[ms]");
-ylabel ("v6_f(t) [V]");
-print (f1, "v6_forçada_cosseno.eps", "-depsc");
+v6_f = Gain6*sin(w*t+Phase6);
 
 f2 = figure ();
-plot (t*1000, v6_fsin, "g");
+plot (t*1000, v6_f, "g");
 
 xlabel ("t[ms]");
 ylabel ("v6_f(t) [V]");
-print (f2, "v6_forçada_seno.eps", "-depsc");
+print (f2, "v6_forçada.eps", "-depsc");
+
+printf("\n\n---->Ponto 5 - Solução final:\n");
+%time axis: -5 to 20ms with 1us steps
+t=-5e-3:1e-6:20e-3; %s
+
+Gain8 = abs(v3(8))
+Phase8 = angle(v3(8))
+v8_f = Gain8*sin(w*t+Phase8);
+
+v6 = v2(6)*exp(-t/Tau) + Gain6*sin(w*t+Phase6);
+v8 = v2(8)*exp(-t/Tau) + Gain8*sin(w*t+Phase8);
+
+phase1 = t<0; phase2 = t>=0;
+V6(phase1) = v1(6);
+V6(phase2) = v2(6)*exp(-t(phase2)/Tau) + Gain6*sin(w*t(phase2)+Phase6);
+
+vs(phase1) = Vs;
+vs(phase2) = sin(w*t(phase2));
+
+f3 = figure ();
+plot (t*1000, V6, "g");
+hold on
+plot (t*1000, vs, "m");
+
+xlabel ("t[ms]");
+ylabel ("v6(t), vs(t) [V]");
+print (f3, "v6.eps", "-depsc");
+
+printf("\n\n---->Ponto 6 - Estudo frequência:\n");
+w=0:1:1e6;
+
+Vc = 1/(1+j*w*Tau);
