@@ -51,14 +51,13 @@ echo  "Frequency analysis"
 echo "********************************************"
 
 ac dec 10 0.1 100MEG
-
-hardcopy acm.ps db(v(v6)) db(v(v1))
+*db(v(v6)) db(v(v1))
+hardcopy acm.ps db(v(v8,v6)) db(v(v1)) db(v(v6))
 echo acm_FIG
-hardcopy acp.ps v(v1)
-echo acp_FIG
 
-plot db(v(v6))
-plot v(v6)
+
+*plot db(v(v6))
+*plot v(v6)
 
 quit
 .endc
