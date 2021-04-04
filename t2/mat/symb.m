@@ -7,17 +7,17 @@ TxtFile = fopen('data.txt', 'r');
 data = dlmread (TxtFile, '\n');
 fclose(TxtFile);
 
-R1 = vpa(data(1));
-R2 = vpa(data(2));
-R3 = vpa(data(3));
-R4 = vpa(data(4));
-R5 = vpa(data(5));
-R6 = vpa(data(6));
-R7 = vpa(data(7));
+R1 = vpa(data(1) * 1e3);
+R2 = vpa(data(2) * 1e3);
+R3 = vpa(data(3) * 1e3);
+R4 = vpa(data(4) * 1e3);
+R5 = vpa(data(5) * 1e3);
+R6 = vpa(data(6) * 1e3);
+R7 = vpa(data(7) * 1e3);
 Vs = vpa(data(8));
-C = vpa(data(9));
-Kb = vpa(data(10));
-Kd = vpa(data(11));
+C = vpa(data(9) * 1e-6);
+Kb = vpa(data(10) * 1e-3);
+Kd = vpa(data(11) * 1e3);
 
 PI = vpa(pi);
 
@@ -30,8 +30,7 @@ G6=vpa(1/R6);
 G7=vpa(1/R7);
 
 syms f real;
-Zc = 1/(j*C*2*PI*f);
-Gc = 1/Zc;
+Gc = j*C*2*PI*f;
 
 A1 = [1, 0, 0, 0, 0, 0, 0, 0];
 A2 = [-G1, G1+G2+G3, -G2, 0, -G3, 0, 0, 0];

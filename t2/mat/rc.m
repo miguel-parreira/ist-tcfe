@@ -10,17 +10,17 @@ TxtFile = fopen('data.txt', 'r');
 data = dlmread (TxtFile, '\n')
 fclose(TxtFile);
 
-R1 = data(1)
-R2 = data(2)
-R3 = data(3)
-R4 = data(4)
-R5 = data(5)
-R6 = data(6)
-R7 = data(7)
+R1 = data(1) * 1e3
+R2 = data(2) * 1e3
+R3 = data(3) * 1e3
+R4 = data(4) * 1e3
+R5 = data(5) * 1e3
+R6 = data(6) * 1e3
+R7 = data(7) * 1e3
 Vs = data(8)
-C = data(9)
-Kb = data(10)
-Kd = data(11)
+C = data(9) * 1e-6
+Kb = data(10) * 1e-3
+Kd = data(11) * 1e3
 
 printf('\n\n---->Ponto 1 - metodo dos nós:\n');
 
@@ -47,14 +47,14 @@ printf('\n\nSolution: (v1-v8)\n');
 v1=A\b
 
 printf('\n\nCorrentes:\n');
-I1 = G1*(v1(1)-v1(2))*1e-3
-I2 = G2*(v1(3)-v1(2))*1e-3
-I3 = G3*(v1(2)-v1(5))*1e-3
-I4 = G4*(v1(5)-v1(4))*1e-3
-I5 = G5*(v1(5)-v1(6))*1e-3
-Id = G6*(v1(4)-v1(7))*1e-3
-I7 = G7*(v1(7)-v1(8))*1e-3
-Ib = Kb*(v1(2)-v1(5))*1e-3
+I1 = G1*(v1(1)-v1(2))
+I2 = G2*(v1(3)-v1(2))
+I3 = G3*(v1(2)-v1(5))
+I4 = G4*(v1(5)-v1(4))
+I5 = G5*(v1(5)-v1(6))
+Id = G6*(v1(4)-v1(7))
+I7 = G7*(v1(7)-v1(8))
+Ib = Kb*(v1(2)-v1(5))
 Ivd = I7
 Ic = 0
 
@@ -76,7 +76,7 @@ b = [0; 0; 0; 0; 0; 0; 0; 0; Vx];
 printf('\n\nSolution: (v1-v8,Ix)\n');
 v2=A\b
 Req = (v2(8)-v2(6))/v2(9)
-Tau = Req*1000*C*1e-6 %Ohm*F
+Tau = Req*C %Ohm*F
 
 printf('\n\n---->Ponto 3 - V6 natural:\n');
 %time axis: 0 to 20ms with 1us steps
@@ -152,7 +152,7 @@ ylabel ('v6(t), vs(t) [V]');
 print (f3, 'v6.eps', '-depsc');
 
 printf('\n\n---->Ponto 6 - Estudo frequência:\n');
-F=logspace(-4, 6, 200);
+F=logspace(-1, 6, 200);
 
 TxtFile = fopen('valores_bode.txt', 'r');
 line = fgetl(TxtFile);
