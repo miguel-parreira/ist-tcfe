@@ -1,11 +1,13 @@
-octave.log: rc.m data
+octave.log: rc.m symbolic.log
+	octave $< > $@
+
+symbolic.log: symb.m data
 	octave $< > $@
 
 data:
 	cd .. && cp -a data.txt ./mat
-# && cd mat && mv data.txt data.mat
 
 clean:
-	@rm -f octave.log octave-workspace *.eps *~
+	@rm -f *.log octave-workspace *.eps *~ *.txt
 
 .PHONY: clean

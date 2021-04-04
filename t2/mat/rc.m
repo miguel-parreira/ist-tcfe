@@ -152,13 +152,32 @@ ylabel ('v6(t), vs(t) [V]');
 print (f3, 'v6.eps', '-depsc');
 
 printf('\n\n---->Ponto 6 - Estudo frequência:\n');
-F=logspace(-1, 6, 200);
+F=logspace(-6, 6, 200);
 
-run('PHASER6.m')
-sys = tf(PHASER6);
+TxtFile = fopen('valores_bode.txt', 'r');
+line = fgetl(TxtFile);
+data3 = sscanf(line, '%f %f*f');
+fclose(TxtFile);
 
-f4 = figure();
-bode(sys, F)
+numer6 = [data3(2), data3(1)];
+denom6 = [data3(4), data3(3)];
+
+v_6 = tf(numer6, denom6);
+
+numers = [0, 1];
+denoms = [0, 1];
+
+v_s = tf(numers, denoms);
+
+numer8 = [data3(6), data3(5)];
+denom8 = [data3(8), data3(7)];
+
+v_8 = tf(numer8, denom8);
+
+v_c = v_6 - v_8;
+
+f5 = figure();
+bode(v_s, v_6, v_c, F)
 
 xlabel ('log(f) [Hz]');
-print (f4, 'v6_bode.eps', '-depsc');
+print (f5, 'bode.eps', '-depsc');
