@@ -48,12 +48,14 @@ b = [1; 0; 0; 0; 0; 0; 0; 0];
 v=A\b;
 
 printf('\nV6: \n\n');
+v(6)
 [N1, D1] = numden(v(6));
 
 
 printf('\nV8: \n\n');
+v(8)
 [N2, D2] = numden(v(8));
 
-filename=fopen("valores_bode.txt", "w+");
-fprintf(filename, "%s %s %s %s %s %s %s %s" , char(real(N1)), char(imag(N1)), char(real(D1)), char(imag(D1)), char(real(N2)), char(imag(N2)), char(real(D2)), char(imag(D2)));
+filename=fopen('valores_bode.txt', 'w+');
+fprintf(filename, '%s %s %s %s %s %s %s %s' , char(real(N1)), char(imag(N1)), char(real(D1)), char(imag(D1)), char(real(N2)), char(imag(N2)), char(real(D2)), char(imag(D2)));
 fclose(filename);

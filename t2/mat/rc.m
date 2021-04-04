@@ -152,7 +152,7 @@ ylabel ('v6(t), vs(t) [V]');
 print (f3, 'v6.eps', '-depsc');
 
 printf('\n\n---->Ponto 6 - Estudo frequência:\n');
-F=logspace(-6, 6, 200);
+F=logspace(-4, 6, 200);
 
 TxtFile = fopen('valores_bode.txt', 'r');
 line = fgetl(TxtFile);
