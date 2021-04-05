@@ -2,66 +2,257 @@
 \label{sec:analysis}
 
 In this section, the circuit shown in Figure~\ref{fig:rc} is analysed
-theoretically, in terms of its time and frequency responses.
+theoretically, in terms of node, AC and phasor analysis.
 
-\section{Time response}
+\subsection{Circuit solution for $t<0$}
 
-The circuit consists of a single V-R-C loop where a current $i(t)$ circulates. The
-voltage source $v_I(t)$ drives its input, and the output voltage $v_O(t)$ is taken from
-the capacitor terminals. Applying the Kirchhoff Voltage Law (KVL), a single
-equation for the single loop in the circuit can be written as
+After naming the nodes from 1 to 8, as shown in Figure~\ref{fig:rc}, assigning the $4^{th}$ node as the reference node ($V_{4}$ =GND) and assuming that the circuit is open in the capacitor branch(because it's supposed that the capacitor is totally charged in $t->0$) the equation to some of the nodes(those that aren't connected to Voltage sources) can be derived from the  Kirchhoff Current Law (KCL).
+For the nodes 2,3,6 and 7, respectively:
 
 \begin{equation}
-  Ri(t) + v_O(t) = v_I(t).
-  \label{eq:kvl}
+  (V_2-V_5)G_3 + (V_2-V_1)G_1 + (V_2-V_3)G_2 = 0
+  \label{eq:Node2}
 \end{equation}
-
-Because $v_O$ is the voltage between capacitor C's plates, it is related to the
-current $i$ by
-\begin{equation}
-  i(t) = C\frac{dv_O}{dt}.
-\end{equation}
-
-Hence, Equation~(\ref{eq:kvl}) can be rewritten as
-\begin{equation}
-  RC\frac{dv_O}{dt} + v_O(t) = v_I.
-  \label{eq:kvl2}
-\end{equation}
-
-Equation~(\ref{eq:kvl2}) is a linear differencial equation whose solution is a
-superposition of a natural solution $v_{On}$ and a forced solution $v_{Of}$:
 
 \begin{equation}
-  v_O(t) = v_{On}(t) + v_{Of}(t).
-  \label{eq:vo_sol}
+  (V_3-V_2)G_2 - K_b(V_2-V_5)= 0
+  \label{eq:Node3}
 \end{equation}
-
-As learned in the theory classes the natural solution is of the form
-\begin{equation}
-  v_{On}(t) = Ae^{-\frac{t}{RC}},
-  \label{eq:vo_nat}
-\end{equation}
-where $A$ is an integration constant.
-
-The forced solution is of the form given in Equation~(\ref{eq:vo_for}) and is
-illustrated in Figure~\ref{fig:forced}.
 
 \begin{equation}
-  V_{Of}(t) = |\bar{V}_{Of}| cos(\omega t + \angle \bar{V}_{Of}),
-  \label{eq:vo_for}
+  (V_5-V_6)G_5 - K_b(V_2-V_5) = 0
+  \label{eq:Node6}
 \end{equation}
 
-\lipsum[1-1]
+\begin{equation}
+  (V_4-V_7)G_6 - (V_7-V_8)G_7 = 0
+  \label{eq:Node7}
+\end{equation}
 
+Now looking at the nodes that are connected to Voltage Sources and knowing the definition of voltage difference, the equations are:
+
+\begin{equation}
+  V_1 = V_S
+  \label{eq:Node1}
+\end{equation}
+
+\begin{equation}
+  V_5= K_d \times G_6(V_4-V_7) + V_8
+  \label{eq:Node8}
+\end{equation}
+
+Noticing that the current through $V_d$ is the same as the one through $R_7$, the equation to supernode 5-8 goes as:
+
+\begin{equation}
+  (V_5-V_4)G_4 + (V_5-V_6)G_5 + (V_5-V_2)G_3 + (V_8-V_7)G_7 = 0
+  \label{eq:Node5}
+\end{equation}
+
+Solving the linear system:
+
+%%MATRIZES%
+$$
+\begin{bmatrix}
+1  &  0 & 0 & 0 & 0 & 0 & 0 & 0       \\
+-G_1 & G_1+G_2+G_3 & -G_2 & 0 & -G_3 & 0 & 0 & 0      \\
+0 & -K_b-G_2 & G_2 & 0 & K_b & 0 & 0 & 0\\
+0 & 0 & 0  & 1 & 0 & 0 & 0 & 0      \\
+0 & -G_3 & 0 & -G_4 & G_4+G_5+G_3 & -G_5 & -G_7 & G_7\\
+0 & -K_b & 0 & 0 & G_5+K_b & -G_5 & 0 & 0 \\
+0 & 0& 0 & G_6 & 0 & 0 & -G_6-G_7 & G_7\\
+0 & 0 & 0 & -K_d\times G_6 & 1 & 0 & K_d\times G_6 & -1\\
+\end{bmatrix}
+\begin{bmatrix}
+V_1     \\
+V_2    \\
+V_3   \\
+V_4     \\
+V_5     \\
+V_6     \\
+V_7     \\
+V_8     \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+V_S   \\
+0    \\
+0  \\
+0  \\
+0  \\
+0  \\
+0  \\
+0  \\
+\end{bmatrix}
+\quad
+$$
+
+The results are:
+
+%%%%%%%%TABELA%%%%%%%%%%%%%%%%%%%%%%
+
+\input{tabela1.tex}
+\input{tabela2.tex}
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Circuit solution for $t=0$}
+
+To calculate  the equivalent resistance, we made $V_s=0$ (in $t=0$, $V_s\neq0$ but it changes in $t_0+dt$ so it's neglected) and replaced the capacitor with a voltage source $V_x= V_6-V_8$, where $V_6$ and $V_8$ are the voltages in nodes 6 and 8 as obtained in $t<0$. With the nodal analysis, the current Ix supplied by Vx was calculated. Finally, the equivalent resistor as Req = Vx/Ix,and the time constant were computed.
+This procedure was executed so that we could get the time constant for the RC circuit, solve the natural solutions for any variable and get the voltages in $t=0$.
+We used the same equations as in $t<0$ with the following changes:
+
+\begin{equation}
+  (V_5-V_4)G_4 + (V_5-V_6)G_5 + (V_5-V_2)G_3 + (V_8-V_7)G_7 = I_x
+  \label{eq:Node5.2}
+\end{equation}
+
+\begin{equation}
+  (V_5-V_6)G_5 - K_b(V_2-V_5) = I_x
+  \label{eq:Node6.2}
+\end{equation}
+
+\begin{equation}
+  V_8 = V_6 + V_x
+  \label{eq:Equation9}
+\end{equation}
+
+
+
+
+Solving the linear system:
+%%MATRIZES%
+$$
+\begin{bmatrix}
+1  &  0 & 0 & 0 & 0 & 0 & 0 & 0 &0      \\
+-G_1 & G_1+G_2+G_3 & -G_2 & 0 & -G_3 & 0 & 0 & 0   &0   \\
+0 & -K_b-G_2 & G_2 & 0 & K_b & 0 & 0 & 0&0\\
+0 & 0 & 0  & 1 & 0 & 0 & 0 & 0  &0    \\
+0 & -G_3 & 0 & -G_4 & G_4+G_5+G_3 & -G_5 & -G_7 & G_7 & -1\\
+0 & -K_b & 0 & 0 & G_5+K_b & -G_5 & 0 & 0 & -1\\
+0 & 0& 0 & G_6 & 0 & 0 & -G_6-G_7 & G_7& 0\\
+0 & 0 & 0 & -K_d\times G_6 & 1 & 0 & K_d\times G_6 & -1& 0\\
+0 & 0 & 0 & 0 & 0 & -1 & 0 & 1 & 0\\
+\end{bmatrix}
+\begin{bmatrix}
+V_1     \\
+V_2    \\
+V_3   \\
+V_4     \\
+V_5     \\
+V_6     \\
+V_7     \\
+V_8     \\
+I_x     \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+0   \\
+0    \\
+0  \\
+0  \\
+0  \\
+0  \\
+0  \\
+0  \\
+V_x \\
+\end{bmatrix}
+\quad
+$$
+
+The results are:
+\input{tabela3.tex}
+
+\subsection{Natural Solution for Node 6 - $t>0$}
+
+The natural solution for the voltage in node 6 is given by the general expression for RC and RL Circuits:
+
+\begin{equation}
+    x(t)=x(\infty) + [x(0)-x(\infty)]\exp(\frac{-t}{\tau})
+\end{equation}
+
+Where $x(t)=v_{6n}(t)$, $x(\infty)=0$ because the capacitor discharges and $x(0)=v_{6n}(0)$ calculated in the subsection before.
 
 \begin{figure}[h] \centering
-\includegraphics[width=0.8\linewidth]{forced.eps}
-\caption{Forced sinusoidal response.}
+\includegraphics[width=0.5\linewidth]{v6_natural.eps}
+\caption{Natural Solution for node 6}
 \label{fig:forced}
 \end{figure}
 
-\section{Frequency response}
+\subsection{Forced Solution - Phasors ($t>0$)}
 
-\lipsum[1-1]
+Choosing the input frequency of $f=1Khz$ and making use of the phasors corresponding to each variable in the circuit: $\tilde{V}_{s}=1$, $\tilde{Z}_{c}=\frac{1}{j\times C \times 2\pi \times f}$
+
+Running node analysis:
+%%MATRIZES%
+$$
+\begin{bmatrix}
+1  &  0 & 0 & 0 & 0 & 0 & 0 & 0       \\
+-G_1 & G_1+G_2+G_3 & -G_2 & 0 & -G_3 & 0 & 0 & 0      \\
+0 & -K_b-G_2 & G_2 & 0 & K_b & 0 & 0 & 0\\
+0 & 0 & 0  & 1 & 0 & 0 & 0 & 0      \\
+0 & -G_3 & 0 & -G_4 & G_4+G_5+G_3 & -G_5+(\frac{1}{Z_{c}}) & -G_7 & G_7-(\frac{1}{Z_{c}})\\
+0 & -K_b & 0 & 0 & G_5+K_b & -G_5+(\frac{1}{Z_{c}}) & 0 & -(\frac{1}{Z_{c}}) \\
+0 & 0& 0 & G_6 & 0 & 0 & -G_6-G_7 & G_7\\
+0 & 0 & 0 & -K_d\times G_6 & 1 & 0 & K_d\times G_6 & -1\\
+\end{bmatrix}
+\begin{bmatrix}
+\tilde{V}_{1}     \\
+\tilde{V}_{2}    \\
+\tilde{V}_{3}   \\
+\tilde{V}_{4}     \\
+\tilde{V}_{5}     \\
+\tilde{V}_{6}     \\
+\tilde{V}_{7}     \\
+\tilde{V}_{8}     \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+1   \\
+0    \\
+0  \\
+0  \\
+0  \\
+0  \\
+0  \\
+0  \\
+\end{bmatrix}
+\quad
+$$
+
+The results are:
+\input{tabela4.tex}
 
 
+Specifically for node 6:
+
+\begin{figure}[h] \centering
+\includegraphics[width=0.7\linewidth]{v6_forçada.eps}
+\caption{Forced Solution for node 6}
+\label{fig:forced}
+\end{figure}
+
+
+
+\subsection{Total Solution - $t>0$}
+
+Superimposing the natural and forced solutions we get the total solution for $v_{6}(t)$.
+Plotting $v_{6}(t)$ and $v_{s}(t)$:
+
+\begin{figure}[h] \centering
+\includegraphics[width=0.7\linewidth]{v6.eps}
+\caption{Total Solution for node 6}
+\label{fig:total}
+\end{figure}
+
+
+\subsection{Frequency Analysis}
+
+Using the last system of equations, we solved the phasors in function of the frequency for $0.1Hz<f<1MHz$, getting $v_{6}(f)$, $v_{s}(f)$ and $v_{c}(f)=v_{6}(f)-v_{8}(f)$
+
+\begin{figure}[h] \centering
+\includegraphics[width=0.6\linewidth]{bode.eps}
+\caption{Frequency Analysis}
+\label{fig:frequency}
+\end{figure}
+
+Comparing the magnitude, we see FALTA ESCREVER

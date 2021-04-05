@@ -8,6 +8,6 @@ data:
 	cd .. && cp -a data.txt ./mat
 
 clean:
-	@rm -f *.log octave-workspace *.eps *~ *.txt
+	@rm -f *.log octave-workspace *.eps *~ *.txt *.tex
 
 .PHONY: clean

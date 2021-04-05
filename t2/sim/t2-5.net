@@ -41,23 +41,24 @@ set color6=rgb:4/0/0
 echo "********************************************"
 echo  "Transient analysis"
 echo "********************************************"
-tran 1e-5 20e-3
+*tran 1e-5 20e-3
 
-hardcopy trans6.ps v(v6) v(v1)
-echo trans_FIG
+*hardcopy trans6.ps v(v6)
+*echo trans_FIG
 
 echo "********************************************"
 echo  "Frequency analysis"
 echo "********************************************"
 
-ac dec 10 0.1 100MEG
+ac dec 10 0.1 1MEG
 *db(v(v6)) db(v(v1))
-hardcopy acm.ps db(v(v8,v6)) db(v(v1)) db(v(v6))
+hardcopy acm.eps db(v(v6,v8)) db(v(v1)) db(v(v6))
+hardcopy acp.eps 180/PI*phase(v(v6)) 180/PI*phase(v(v1)) 180/PI*phase(v(v6,v8))
 echo acm_FIG
 
 
-*plot db(v(v6))
-*plot v(v6)
+*plot ac db(v(v6))
+*plot phase(v(v6))
 
 quit
 .endc

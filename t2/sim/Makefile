@@ -51,9 +51,6 @@ ngspice5.log : ../sim/t2-5.net
 		ngspice -b $< -o $@
 
 clean:
-	@rm -f ngspice1.log *.tex *.pdf *.ps *~
-	@rm -f ngspice2.log *.tex *.pdf *.ps *~
-	@rm -f ngspice3.log *.tex *.pdf *.ps *~
-	@rm -f ngspice4.log *.tex *.pdf *.ps *~
-	@rm -f ngspice5.log *.tex *.pdf *.ps *~
+	@rm -f *.log *.tex *.pdf *.eps *.ps *~
+
 .PHONY: all clean

@@ -46,17 +46,26 @@ b = [Vs; 0; 0; 0; 0; 0; 0; 0];
 printf('\n\nSolution: (v1-v8)\n');
 v1=A\b
 
+tabela1=fopen('tabela1.tex', 'w+');
+fprintf(tabela1, ' \\begin{table}[h] \n \\label{tab:tables} \n \\begin{center} \n \\begin{tabular}{|c|c|} \n  \\hline \n   Node Voltage & Value \\hspace{1mm}(V)\\\\ \n  \\hline \n  $V_{1}$ & %.15f   \\\\ \n   \\hline \n  $V_{2}$ & %.15f \\\\ \n   \\hline \n  $V_{3}$ & %.15f \\\\ \n   \\hline \n  $V_{4}$ & %.15f \\\\ \n   \\hline \n  $V_{5}$ & %.15f \\\\ \n   \\hline \n  $V_{6}$ & %.15f \\\\ \n   \\hline \n  $V_{7}$ & %.15f \\\\ \n   \\hline \n  $V_{8}$ &  %.15f \\\\ \n  \\hline \n \\end{tabular} \n \\caption{Solutions to Node Analysis Method} \n \\label{table:tab1} \n \\end{center} \n \\end{table} \n ' , v1(1), v1(2), v1(3), v1(4), v1(5), v1(6), v1(7), v1(8));
+fclose(tabela1);
+
 printf('\n\nCorrentes:\n');
-I1 = G1*(v1(1)-v1(2))
-I2 = G2*(v1(3)-v1(2))
-I3 = G3*(v1(2)-v1(5))
-I4 = G4*(v1(5)-v1(4))
-I5 = G5*(v1(5)-v1(6))
-Id = G6*(v1(4)-v1(7))
-I7 = G7*(v1(7)-v1(8))
-Ib = Kb*(v1(2)-v1(5))
+I1 = G1*(v1(1)-v1(2))*1e3
+I2 = G2*(v1(3)-v1(2))*1e3
+I3 = G3*(v1(2)-v1(5))*1e3
+I4 = G4*(v1(5)-v1(4))*1e3
+I5 = G5*(v1(5)-v1(6))*1e3
+Id = G6*(v1(4)-v1(7))*1e3
+I7 = G7*(v1(7)-v1(8))*1e3
+Ib = Kb*(v1(2)-v1(5))*1e3
 Ivd = I7
 Ic = 0
+
+tabela2=fopen('tabela2.tex', 'w+');
+fprintf(tabela2, ' \\begin{table}[h] \n \\label{tab:tables} \n \\begin{center} \n \\begin{tabular}{|c|c|} \n  \\hline \n   Branch Current  & Value \\hspace{1mm}(mA)\\\\ \n  \\hline \n  $I_{1}$ & %.15f   \\\\ \n   \\hline \n  $I_{2}$ & %.15f \\\\ \n   \\hline \n  $I_{3}$ & %.15f \\\\ \n   \\hline \n  $I_{4}$ & %.15f \\\\ \n   \\hline \n  $I_{5}$ & %.15f \\\\ \n   \\hline \n  $I_{7}$ & %.15f \\\\ \n   \\hline \n  $I_{vd}$ & %.15f \\\\ \n   \\hline \n  $I_{b}$ &  %.15f \\\\ \n \\hline \n  $I_{c}$ &  %.15f \\\\ \n  \\hline \n \\end{tabular} \n \\caption{Solutions to Node Analysis Method} \n \\label{table:tab2} \n \\end{center} \n \\end{table} \n ' , I1, I2, I3, I4, I5, I7, Ivd, Ib, Ic);
+fclose(tabela2);
+
 
 printf('\n\n---->Ponto 2 - Resistencia Equivalente:\n');
 Vx = v1(8) - v1(6);
@@ -77,6 +86,12 @@ printf('\n\nSolution: (v1-v8,Ix)\n');
 v2=A\b
 Req = (v2(8)-v2(6))/v2(9)
 Tau = Req*C %Ohm*F
+
+tabela3=fopen('tabela3.tex', 'w+');
+fprintf(tabela3, ' \\begin{table}[h] \n \\label{tab:tables} \n \\begin{center} \n \\begin{tabular}{|c|c|} \n  \\hline \n   Variables & Value \\hspace{1mm}(V / $\\Omega$ / $\\Omega * F$)\\\\ \n  \\hline \n  $V_{1}$ & %.15f   \\\\ \n   \\hline \n  $V_{2}$ & %.15f \\\\ \n   \\hline \n  $V_{3}$ & %.15f \\\\ \n   \\hline \n  $V_{4}$ & %.15f \\\\ \n   \\hline \n  $V_{5}$ & %.15f \\\\ \n   \\hline \n  $V_{6}$ & %.15f \\\\ \n   \\hline \n  $V_{7}$ & %.15f \\\\ \n   \\hline \n  $V_{8}$ &  %.15f \\\\ \n \\hline \n  $I_{x}$ &  %.15f \\\\ \n \\hline \n  $R_{eq}$ &  %.15f \\\\ \n \\hline \n  $\\tau$ &  %.15f \\\\ \n \\hline \n \\end{tabular} \n \\caption{Solutions to Node Analysis Method} \n \\label{table:tab3} \n \\end{center} \n \\end{table} \n ' , v2(1), v2(2), v2(3), v2(4), v2(5), v2(6), v2(7), v2(8), v2(9), Req, Tau);
+fclose(tabela3);
+
+
 
 printf('\n\n---->Ponto 3 - V6 natural:\n');
 %time axis: 0 to 20ms with 1us steps
@@ -111,6 +126,11 @@ b = [1; 0; 0; 0; 0; 0; 0; 0];
 
 printf('\n\nSolution: (v1-v8)\n');
 v3=A\b
+
+tabela4=fopen('tabela4.tex', 'w+');
+fprintf(tabela4, ' \\begin{table}[h] \n \\label{tab:tables} \n \\begin{center} \n \\begin{tabular}{|c|c|} \n  \\hline \n   Phasor &  \\\\ \n  \\hline \n  $V_{1}$ & %.6f%+fj   \\\\ \n   \\hline \n  $V_{2}$ & %.6f%+fj \\\\ \n   \\hline \n  $V_{3}$ & %.6f%+fj \\\\ \n   \\hline \n  $V_{4}$ & %.6f%+fj \\\\ \n   \\hline \n  $V_{5}$ & %.6f%+fj \\\\ \n   \\hline \n  $V_{6}$ & %.6f%+fj \\\\ \n   \\hline \n  $V_{7}$ & %.6f%+fj \\\\ \n   \\hline \n  $V_{8}$ &  %.6f%+fj \\\\ \n  \\hline \n \\end{tabular} \n \\caption{Solutions to Node Analysis Method} \n \\label{table:tab4} \n \\end{center} \n \\end{table} \n ' , real(v3(1)), imag(v3(1)), real(v3(2)), imag(v3(2)), real(v3(3)), imag(v3(3)), real(v3(4)), imag(v3(4)), real(v3(5)), imag(v3(5)), real(v3(6)), imag(v3(6)), real(v3(7)), imag(v3(7)), real(v3(8)), imag(v3(8)));
+fclose(tabela4);
+
 
 Gain6 = abs(v3(6));
 Phase6 = angle(v3(6));

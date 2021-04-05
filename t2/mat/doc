@@ -1,0 +1,29 @@
+ \begin{table}[h] 
+ \label{tab:tables} 
+ \begin{center} 
+ \begin{tabular}{|c|c|} 
+  \hline 
+   Node Voltage & Value \hspace{1mm}(V)\\ 
+  \hline 
+  $V_{1}$ & 5.051442559750000   \\ 
+   \hline 
+  $V_{2}$ & 4.817046879914681 \\ 
+   \hline 
+  $V_{3}$ & 4.321913191310698 \\ 
+   \hline 
+  $V_{4}$ & -0.000000000000000 \\ 
+   \hline 
+  $V_{5}$ & 4.849952570949478 \\ 
+   \hline 
+  $V_{6}$ & 5.575185364005538 \\ 
+   \hline 
+  $V_{7}$ & -1.980632424391875 \\ 
+   \hline 
+  $V_{8}$ &  -2.972821675148061 \\ 
+  \hline 
+ \end{tabular} 
+ \caption{Solutions to Mesh Analysis Method} 
+ \label{table:tab2} 
+ \end{center} 
+ \end{table} 
+ 
