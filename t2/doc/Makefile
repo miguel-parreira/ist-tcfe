@@ -28,7 +28,7 @@ data:
 		cd ../mat && cp -a tabela3.tex ./../doc
 		cd ../mat && cp -a tabela4.tex ./../doc
 		cd ../mat && cp -a v6_natural.eps ./../doc
-		cd ../mat && cp -a v6_forçada.eps ./../doc
+		cd ../mat && cp -a v6_forcada.eps ./../doc
 		cd ../mat && cp -a v6.eps ./../doc
 		cd ../mat && cp -a bode.eps ./../doc
 		cd ../sim && cp -a trans.eps ./../doc

@@ -142,7 +142,7 @@ plot (t*1000, v6_f, 'r');
 
 xlabel ('t[ms]');
 ylabel ('v6_f(t) [V]');
-print (f2, 'v6_forçada.eps', '-depsc');
+print (f2, 'v6_forcada.eps', '-depsc');
 
 printf('\n\n---->Ponto 5 - Solução final:\n');
 %time axis: -5 to 20ms with 1us steps
