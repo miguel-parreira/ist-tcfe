@@ -1,0 +1,96 @@
+\section{Comparison}
+\subsection{Circuit solution for $t<0$}
+
+
+\input{tabela1.tex}
+
+\input{tabela2.tex}
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|r|}
+    \hline
+    {\bf Name} & {\bf Value [A or V]} \\ \hline
+    \input{../sim/op_tab}
+  \end{tabular}
+  \caption{Operating point. A variable preceded by @ is of type {\em current}
+    and expressed in Ampere; other variables are of type {\it voltage} and expressed in
+    Volt.}
+  \label{tab:op}
+\end{table}
+
+
+\newpage
+
+\subsection{Circuit solution for $t=0$}
+
+\input{tabela3.tex}
+
+\newpage
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|r|}
+    \hline
+    {\bf Name} & {\bf Value [A or V]} \\ \hline
+    \input{../sim/op2_tab}
+  \end{tabular}
+  \caption{Operating point. A variable preceded by @ is of type {\em current}
+    and expressed in Ampere; other variables are of type {\it voltage} and expressed in Volt.}
+  \label{tab:op2}
+\end{table}
+
+\newpage
+\subsection{Natural Solution for Node 6 - $t>0$}
+
+\begin{figure}[h] \centering
+\includegraphics[width=0.6\linewidth]{v6_natural.eps}
+\caption{Natural Solution for node 6}
+\label{fig:forced}
+\end{figure}
+
+
+
+\begin{figure}[h] \centering
+\includegraphics[width=0.5\linewidth]{trans.eps}
+\caption{Transient output voltage}
+\label{fig:trans}
+\end{figure}
+
+\newpage
+
+\subsection{Total Solution - $t>0$}
+
+\begin{figure}[h] \centering
+\includegraphics[width=0.7\linewidth]{v6.eps}
+\caption{Total Solution for node 6}
+\label{fig:total}
+\end{figure}
+
+\begin{figure}[h] \centering
+\includegraphics[width=0.5\linewidth]{trans4.eps}
+\caption{Transient output voltage}
+\label{fig:trans4}
+\end{figure}
+
+
+\newpage
+
+\subsection{Frequency Analysis}
+
+\begin{figure}[h] \centering
+\includegraphics[width=0.6\linewidth]{bode.eps}
+\caption{Frequency Analysis}
+\label{fig:frequency}
+\end{figure}
+
+\begin{figure}[h] \centering
+\includegraphics[width=0.5\linewidth]{acm.eps}
+\caption{Magnitude response}
+\label{fig:acm}
+\end{figure}
+
+\begin{figure}[h] \centering
+\includegraphics[width=0.5\linewidth]{acp.eps}
+\caption{Phase response}
+\label{fig:acp}
+\end{figure}
