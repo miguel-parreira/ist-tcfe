@@ -14,7 +14,6 @@ clean:
 	make -C mat clean
 	make -C sim clean
 	make -C doc clean
+	@rm -f *.pdf .~lock.t2.odp#
 
 .PHONY: all clean
-
-
