@@ -9,41 +9,33 @@
 * supply voltage AC
 Vs 1 GND SIN(0 230 50 0 0 0)
 
-*Dependent Voltage source as transformer
-E1 2 GND 1 GND 1k
+*Dependent Voltage source
+E1 2 GND 1 GND 0.1
 
 Rq 1 GND 1
-
-*voltage regulator
-R2 2 3 10e-12
-D1 3 4 Default
-D2 4 5 Default
-D3 5 6 Default
-D4 6 7 Default
-D5 7 8 Default
-D6 8 9 Default
-D7 9 GND Default
-
-
+* ideal transformer (10:1 =>   L1/L2 = (N1/N2)^2  )
+*L1 1 GND 2000
+*L2 2 GND 20
+*K L1 L2 0.99999
 
 ** envelop detector
 * diode
-D100 3 10 Default
-
+D1 4 2 Default
+D2 2 3 Default
+D3 4 GND Default
+D4 GND 3 Default
 .model Default D
 *resistor
-R1 10 GND 300k
+R1 4 3 10k
 *capacitor
-Cc 10 GND 10uF
+Cc 4 3 10uF
+
 
 
 
 .op
-.measure tran yavg AVG v(10) from=0 to=0.2
-.measure tran ymax MAX v(10) from=0 to=0.2
-.measure tran ymin MIN v(10) from=0.05 to=0.2
-.end
 
+.end
 
 .control
 
@@ -74,8 +66,9 @@ set color6=rgb:4/0/0
 echo "********************************************"
 echo  "Transient analysis"
 echo "********************************************"
-tran 10e-7 0.2
-hardcopy trans.ps  v(10) avg(v(10))
+tran 10e-5 0.2
+
+hardcopy trans2.ps  v(3)
 echo trans_FIG
 
 *echo "********************************************"
