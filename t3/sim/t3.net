@@ -12,7 +12,7 @@ Vs 1 GND SIN(0 230 50 0 0 0)
 *Dependent Voltage source as transformer
 E1 2 GND 1 GND 1k
 
-Rq 1 GND 1
+Rq 1 GND 1k
 
 *voltage regulator
 R2 2 3 10e-12
@@ -32,7 +32,7 @@ D100 3 10 Default
 
 .model Default D
 *resistor
-R1 10 GND 300k
+R1 10 GND 30T0k
 *capacitor
 Cc 10 GND 10uF
 
