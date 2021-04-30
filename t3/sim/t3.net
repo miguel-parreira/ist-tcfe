@@ -90,7 +90,7 @@ echo "********************************************"
 echo  "Transient analysis"
 echo "********************************************"
 
-tran 10e-5 0.6 0.3
+tran 10e-5 0.6 0.1
 hardcopy transOUT.ps v(4) v(3)
 
 tran 10e-5 0.6 0.3
