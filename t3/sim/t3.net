@@ -16,7 +16,6 @@ E1 2 GND 1 GND .1
 ** envelop detector
 * diode
 D101 2 21 Default
-D102 21 2 Default
 D104 21 22 Default
 D100 22 23 Default
 D106 23 24 Default
@@ -29,7 +28,7 @@ R1 3 GND 100k
 Cc1 3 GND 100u
 
 *voltage regulator
-R2 3 4 13.13k
+R2 3 4 14.67k
 D2 4 5 Default
 D3 5 6 Default
 D4 6 7 Default
@@ -54,9 +53,9 @@ D20 32 GND Default
 .model Default D
 
 .op
-.measure tran yavg AVG v(4) from=0 to=0.2
-.measure tran ymax MAX v(4) from=0.05 to=0.2
-.measure tran ymin MIN v(4) from=0.05 to=0.2
+.measure tran yavg AVG v(4) from=0.3 to=0.6
+.measure tran ymax MAX v(4) from=0.3 to=0.6
+.measure tran ymin MIN v(4) from=0.3 to=0.6
 .end
 
 
@@ -90,9 +89,12 @@ set color6=rgb:4/0/0
 echo "********************************************"
 echo  "Transient analysis"
 echo "********************************************"
-tran 10e-5 0.2 0.001
-hardcopy trans.ps v(4) avg(v(4))
-echo trans_FIG
+
+tran 10e-5 0.6 0.3
+hardcopy transOUT.ps v(4) v(3)
+
+tran 10e-5 0.6 0.3
+hardcopy transRIPPLE.ps v(4) 12
 
 *echo "********************************************"
 *echo  "Frequency analysis"
