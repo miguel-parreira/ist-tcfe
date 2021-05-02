@@ -53,9 +53,12 @@ D20 32 GND Default
 .model Default D
 
 .op
-.measure tran yavg AVG v(4) from=0.3 to=0.6
-.measure tran ymax MAX v(4) from=0.3 to=0.6
-.measure tran ymin MIN v(4) from=0.3 to=0.6
+.measure tran yavg4 AVG v(4) from=0.3 to=0.6
+.measure tran ymax4 MAX v(4) from=0.3 to=0.6
+.measure tran ymin4 MIN v(4) from=0.3 to=0.6
+.measure tran yavg3 AVG v(3) from=0.3 to=0.6
+.measure tran ymax3 MAX v(3) from=0.3 to=0.6
+.measure tran ymin3 MIN v(3) from=0.3 to=0.6
 .end
 
 
@@ -90,11 +93,11 @@ echo "********************************************"
 echo  "Transient analysis"
 echo "********************************************"
 
-tran 10e-5 0.6 0.1
-hardcopy transOUT.ps v(4) v(3)
+tran 10e-5 0.6
+hardcopy transOUT.ps  v(4) v(3)
 
-tran 10e-5 0.6 0.3
-hardcopy transRIPPLE.ps v(4) 12
+*tran 10e-5 0.6 0.3
+*hardcopy transRIPPLE.ps v(4) 12
 
 *echo "********************************************"
 *echo  "Frequency analysis"

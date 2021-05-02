@@ -2,29 +2,59 @@ close all
 clear all
 pkg load control
 format long
-function xdot = f (x, t)
-  a=pi;
-  R=100000;
-  C=100 * 1e-6;
-  Is=1e-14;
-  eta=1;
-  Vt=1e-3;
-  dV1=-2*a*50*23*cos(2*a*50*t);
-  V1=23*sin(2*a*50*t);
 
-  xdot=(1/(R*C))*(-x-R*Is*(exp(x/(7*eta*Vt))-1)+ R*C*dV1+V1);
+A=23
+f=50;
+R=100000;
+C=100 * 1e-6;
+Is=1e-14;
+eta=1;
+Vt=1e-3;
+t=linspace(0,0.2,1000);
+w=2*pi*f;
+vS=A*sin(w*t);
+vO = abs(vS);
+vOhr = zeros(1, length(t));
+vO = zeros(1, length(t));
+von=11.99997/19;
+rd=((12.00813-11.99589)/(4.092084e-04-3.957988e-04)/19);
 
-endfunction
 
-lsode_options("integration method", "non-stiff")
 
-f(1,2)
-x0=0;
-t=linspace(0,0.6,1000);
-y=lsode("f",x0,t)
+tOFF = 1/w * atan(1*w*R*C)
 
-hf = figure ();
-plot (t, y, "g");
-xlabel ("t[ms]");
-ylabel ("vi(t), vo(t) [V]");
-print (hf, "forced.eps", "-depsc");
+vOnexp = A*sin(w*tOFF)*exp(-(t-tOFF)/R/C);
+
+figure
+for i=1:length(t)
+  if (vS(i) > 0)
+    vOhr(i) = vS(i);
+  else
+    vOhr(i) = 0;
+  endif
+endfor
+
+plot(t, vOhr)
+hold
+
+for i=1:length(t)
+
+  if t(i) < tOFF
+    vO(i) = vS(i);
+  elseif t(i) > tOFF+0.02
+    tOFF = tOFF + 0.02;
+    vOnexp = A*sin(w*tOFF)*exp(-(t-tOFF)/R/C);
+    vO(i) = vS(i);
+  elseif vOnexp(i) > vOhr(i)
+    vO(i) = vOnexp(i);
+  else
+    vO(i) = vS(i);
+  endif
+endfor
+
+plot(t, vO)
+title("Output voltage v_o(t)")
+xlabel ("t[ms]")
+legend("rectified","envelope")
+legend('Location','eastoutside')
+print ("venvlope.eps", "-depsc");

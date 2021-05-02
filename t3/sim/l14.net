@@ -7,29 +7,14 @@
 .options savecurrents
 
 * supply voltage AC
-Vs 1 GND SIN(0 230 50 0 0 0)
-Rq 1 GND 1
+Vs 1 GND SIN(17.90467 0.10655 50 0 0 0)
 
-*Dependent Voltage source as transformer
-E1 2 GND 1 GND .1
 
-** envelop detector
-* diode
-D101 2 21 Default
-D102 21 2 Default
-D104 21 22 Default
-D100 22 23 Default
-D106 23 24 Default
-D107 24 25 Default
-D108 25 26 Default
-D105 26 3 Default
-*resistor
-R1 3 GND 15k
-*capacitor
-Cc1 3 GND 15u
+
+
 
 *voltage regulator
-R2 3 4 11.604k
+R2 1 4 14.67k
 D2 4 5 Default
 D3 5 6 Default
 D4 6 7 Default
@@ -54,9 +39,12 @@ D20 32 GND Default
 .model Default D
 
 .op
-.measure tran yavg AVG v(4) from=0 to=0.2
-.measure tran ymax MAX v(4) from=0.05 to=0.2
-.measure tran ymin MIN v(4) from=0.05 to=0.2
+.measure tran yavg AVG v(4) from=0.3 to=0.6
+.measure tran ymax MAX v(4) from=0.3 to=0.6
+.measure tran ymin MIN v(4) from=0.3 to=0.6
+.measure tran yavgi AVG @R2[i] from=0.3 to=0.6
+.measure tran ymaxi MAX @R2[i] from=0.3 to=0.6
+.measure tran ymini MIN @R2[i] from=0.3 to=0.6
 .end
 
 
@@ -90,9 +78,12 @@ set color6=rgb:4/0/0
 echo "********************************************"
 echo  "Transient analysis"
 echo "********************************************"
-tran 10e-5 0.2 0.001
-hardcopy trans2.ps v(4) avg(v(4))
-echo trans_FIG
+
+tran 10e-5 0.6
+hardcopy transOUT3.ps  @R2[i]
+
+*tran 10e-5 0.6 0.3
+*hardcopy transRIPPLE.ps v(4) 12
 
 *echo "********************************************"
 *echo  "Frequency analysis"
