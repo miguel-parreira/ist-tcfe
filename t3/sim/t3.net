@@ -15,20 +15,14 @@ E1 2 GND 1 GND .1
 
 ** envelop detector
 * diode
-D101 2 21 Default
-D104 21 22 Default
-D100 22 23 Default
-D106 23 24 Default
-D107 24 25 Default
-D108 25 26 Default
-D105 26 3 Default
+D101 2 3 Default
 *resistor
 R1 3 GND 100k
 *capacitor
 Cc1 3 GND 100u
 
 *voltage regulator
-R2 3 4 14.67k
+R2 3 4 25.4055k
 D2 4 5 Default
 D3 5 6 Default
 D4 6 7 Default
@@ -93,11 +87,11 @@ echo "********************************************"
 echo  "Transient analysis"
 echo "********************************************"
 
-tran 10e-5 0.6
+tran 10e-5 0.2
 hardcopy transOUT.ps  v(4) v(3)
 
-*tran 10e-5 0.6 0.3
-*hardcopy transRIPPLE.ps v(4) 12
+tran 10e-5 0.2 0.05
+hardcopy transRIPPLE.ps v(4) 12
 
 *echo "********************************************"
 *echo  "Frequency analysis"

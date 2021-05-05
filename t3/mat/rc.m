@@ -5,11 +5,11 @@ format long
 
 A=23
 f=50;
-R=100000;
+R=100 * 1e3;
 C=100 * 1e-6;
 Is=1e-14;
 eta=1;
-Vt=1e-3;
+Vt=25e-3;
 t=linspace(0,0.2,1000);
 w=2*pi*f;
 vS=A*sin(w*t);
