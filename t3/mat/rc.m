@@ -16,8 +16,7 @@ vS=A*sin(w*t);
 vO = abs(vS);
 vOhr = zeros(1, length(t));
 vO = zeros(1, length(t));
-von=11.99997/19;
-rd=((12.00813-11.99589)/(4.092084e-04-3.957988e-04)/19);
+
 
 tOFF = 1/w * atan(1*w*R*C)
 

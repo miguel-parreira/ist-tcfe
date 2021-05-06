@@ -1,67 +1,36 @@
 \section{Theoretical Analysis}
 \label{sec:analysis}
 
-In this section, the circuit shown in Figure~\ref{fig:rc} is analysed
-theoretically, in terms of its time and frequency responses.
+In this section, the eletrical device shown in Figure~\ref{fig:rc} is analysed
+theoretically to predict the output of the Envelope Detector and Voltage Regulator circuits.
 
-\section{Time response}
+\section{Envelope Detector}
 
-The circuit consists of a single V-R-C loop where a current $i(t)$ circulates. The
-voltage source $v_I(t)$ drives its input, and the output voltage $v_O(t)$ is taken from
-the capacitor terminals. Applying the Kirchhoff Voltage Law (KVL), a single
+The circuit consists of a diode(that receives a sinusoidal signal) and a resistance in parallel with a capacitor. The
+voltage source $v_S(t)$ drives its input, and the output voltage $v_3(t)$ is taken from
+the capacitor terminals. Using the diode ideal model and the solution for the RC circuit, at $t=0$ the diode is on (its a short circuit) and $v_3(t)=v_S(t)$. When $t=tOFF$ the diode goes off (its an open circuit) and $v_3(t)=-R*i_{C}$.
+Noticing that at $tOFF$ $i_{R}=-i_{C}$ then $tOFF = \frac{1}{w} \times \arctan{1*w*R*C}$ and for $t>tOFF$ $v_3(t)= A\times \sin(w\times tOFF)\times \exp{-\frac{t-tOFF}{RC}}$.
+The time $tON$ is given by the first intersection between the solution for $t>tON$ and $v_S(t)$.
+
+\begin{figure}[h] \centering
+\includegraphics[width=0.5\linewidth]{venvlope.eps}
+\caption{Output voltage of the envelope detector(v3) and the voltage regulator(v4 - DC Output)}
+\label{fig:vevelope}
+\end{figure}
+\newpage
+\section{Voltage Regulator}
+Using the real diode model and applying the Kirchhoff Voltage Law (KVL), a single
 equation for the single loop in the circuit can be written as
 
 \begin{equation}
-  Ri(t) + v_O(t) = v_I(t).
+  v_{4}+R\times I_{s} \times \exp{\frac{v_{4}}{19\eta \times v_{T}}-1} - v_{3}=0
   \label{eq:kvl}
 \end{equation}
 
-Because $v_O$ is the voltage between capacitor C's plates, it is related to the
-current $i$ by
-\begin{equation}
-  i(t) = C\frac{dv_O}{dt}.
-\end{equation}
-
-Hence, Equation~(\ref{eq:kvl}) can be rewritten as
-\begin{equation}
-  RC\frac{dv_O}{dt} + v_O(t) = v_I.
-  \label{eq:kvl2}
-\end{equation}
-
-Equation~(\ref{eq:kvl2}) is a linear differencial equation whose solution is a
-superposition of a natural solution $v_{On}$ and a forced solution $v_{Of}$:
-
-\begin{equation}
-  v_O(t) = v_{On}(t) + v_{Of}(t).
-  \label{eq:vo_sol}
-\end{equation}
-
-As learned in the theory classes the natural solution is of the form
-\begin{equation}
-  v_{On}(t) = Ae^{-\frac{t}{RC}},
-  \label{eq:vo_nat}
-\end{equation}
-where $A$ is an integration constant.
-
-The forced solution is of the form given in Equation~(\ref{eq:vo_for}) and is
-illustrated in Figure~\ref{fig:forced}.
-
-\begin{equation}
-  V_{Of}(t) = |\bar{V}_{Of}| cos(\omega t + \angle \bar{V}_{Of}),
-  \label{eq:vo_for}
-\end{equation}
-
-\lipsum[1-1]
-
+Solving the equation with the Newton Raphson’s iterative method, we got the DC output (v4). And in the image below, we see the oscillation around the average. Noticing that it is a little bit different from the simulation result, as was expected.
 
 \begin{figure}[h] \centering
-\includegraphics[width=0.8\linewidth]{forced.eps}
-\caption{Forced sinusoidal response.}
-\label{fig:forced}
+\includegraphics[width=0.5\linewidth]{vripple.eps}
+\caption{Ripple for the DC output}
+\label{fig:vripple}
 \end{figure}
-
-\section{Frequency response}
-
-\lipsum[1-1]
-
-

@@ -88,10 +88,10 @@ echo  "Transient analysis"
 echo "********************************************"
 
 tran 10e-5 0.2
-hardcopy transOUT.ps  v(4) v(3)
+hardcopy transOUT.eps  v(4) v(3)
 
 tran 10e-5 0.2 0.05
-hardcopy transRIPPLE.ps v(4) 12
+hardcopy transRIPPLE.eps v(4) 12
 
 *echo "********************************************"
 *echo  "Frequency analysis"
