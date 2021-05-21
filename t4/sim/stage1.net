@@ -25,14 +25,14 @@ Cb emit 0 1m
 
 
 * output stage
-Q2 0 coll emit2 BC557A
-Rout emit2 vcc 100
+*Q2 0 coll emit2 BC557A
+*Rout emit2 vcc 100
 
 * output coupling capacitor
-Co emit2 out 1u
+*Co emit2 out 1u
 
 * load
-RL out 0 8
+*RL out 0 8
 
 .op
 .end
@@ -43,28 +43,24 @@ RL out 0 8
 * time analysis
 tran 1e-5 1e-2
 plot v(coll)
-hardcopy vo1.ps vdb(coll)
+hardcopy vos1.ps vdb(coll)
 
-tran 1e-5 1e-2
-plot v(out)
-hardcopy vo2.ps v(out)
-
-tran 1e-5 1e-2
-plot v(in2)
-hardcopy vin.ps v(in2)
+*tran 1e-5 1e-2
+*plot v(out)
+*hardcopy vo2.ps v(out)
 
 
 * frequency analysis
 ac dec 10 10 100MEG
 plot vdb(coll)
 plot vp(coll)
-hardcopy vo1f.ps vdb(coll)
+hardcopy vos1f.ps vdb(coll)
 
 
 
-plot vdb(out)
-plot vp(out)
-hardcopy vo2f.ps vdb(out)
+*plot vdb(out)
+*plot vp(out)
+*hardcopy vo2f.ps vdb(out)
 
 *input impedance in kohm
 *print all

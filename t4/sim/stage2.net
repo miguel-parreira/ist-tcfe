@@ -49,10 +49,6 @@ tran 1e-5 1e-2
 plot v(out)
 hardcopy vo2.ps v(out)
 
-tran 1e-5 1e-2
-plot v(in2)
-hardcopy vin.ps v(in2)
-
 
 * frequency analysis
 ac dec 10 10 100MEG
