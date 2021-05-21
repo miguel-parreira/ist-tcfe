@@ -26,10 +26,10 @@ Cb emit 0 1m
 
 * output stage
 Q2 0 coll emit2 BC557A
-Rout emit2 vcc 100
+Rout emit2 vcc 10
 
 * output coupling capacitor
-Co emit2 out 1u
+Co emit2 out .5m
 
 * load
 Vout out 0 1 ac 1.0 sin(0 10m 1k)

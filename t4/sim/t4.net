@@ -26,10 +26,10 @@ Cb emit 0 1m
 
 * output stage
 Q2 0 coll emit2 BC557A
-Rout emit2 vcc 100
+Rout emit2 vcc 10
 
 * output coupling capacitor
-Co emit2 out 1u
+Co emit2 out .5m
 
 * load
 RL out 0 8
@@ -43,7 +43,7 @@ RL out 0 8
 * time analysis
 tran 1e-5 1e-2
 plot v(coll)
-hardcopy vo1.ps vdb(coll)
+hardcopy vo1.ps v(coll)
 
 tran 1e-5 1e-2
 plot v(out)
