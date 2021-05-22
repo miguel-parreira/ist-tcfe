@@ -1,15 +1,15 @@
 %gain stage
 
-VT=25e-3
-BFN=178.7
-VAFN=69.7
-RE1=100
-RC1=1000
-RB1=80000
-RB2=20000
-VBEON=0.7
-VCC=12
-RS=100
+VT=25e-3;
+BFN=178.7;
+VAFN=69.7;
+RE1=100;
+RC1=1000;
+RB1=80000;
+RB2=20000;
+VBEON=0.7;
+VCC=12;
+RS=100;
 
 RB=1/(1/RB1+1/RB2)
 VEQ=RB2/(RB1+RB2)*VCC
@@ -41,7 +41,7 @@ AVIsimple_DB = 20*log10(abs(AV1simple))
 RE1=100
 ZI1 = 1/(1/RB+1/(((ro1+RC1+RE1)*(rpi1+RE1)+gm1*RE1*ro1*rpi1 - RE1^2)/(ro1+RC1+RE1)))
 ZX = ro1*((RSB+rpi1)*RE1/(RSB+rpi1+RE1))/(1/(1/ro1+1/(rpi1+RSB)+1/RE1+gm1*rpi1/(rpi1+RSB)))
-ZX = ro1*(   1/RE1+1/(rpi1+RSB)+1/ro1+gm1*rpi1/(rpi1+RSB)  )/(   1/RE1+1/(rpi1+RSB) ) 
+ZX = ro1*(   1/RE1+1/(rpi1+RSB)+1/ro1+gm1*rpi1/(rpi1+RSB)  )/(   1/RE1+1/(rpi1+RSB) )
 ZO1 = 1/(1/ZX+1/RC1)
 
 RE1=0
@@ -49,13 +49,13 @@ ZI1 = 1/(1/RB+1/(((ro1+RC1+RE1)*(rpi1+RE1)+gm1*RE1*ro1*rpi1 - RE1^2)/(ro1+RC1+RE
 ZO1 = 1/(1/ro1+1/RC1)
 
 %ouput stage
-BFP = 227.3
-VAFP = 37.2
-RE2 = 100
-VEBON = 0.7
+BFP = 227.3;
+VAFP = 37.2;
+RE2 = 10;
+VEBON = 0.7;
 VI2 = VO1
 IE2 = (VCC-VEBON-VI2)/RE2
-IC2 = BFP/(BFP+1)*IE2
+IC2 =( BFP/(BFP+1))*IE2
 VO2 = VCC - RE2*IE2
 
 gm2 = IC2/VT
@@ -69,8 +69,24 @@ ZO2 = 1/(gm2+gpi2+go2+ge2)
 
 
 %total
-gB = 1/(1/gpi2+ZO1)
+gB = 1/((1/gpi2)+ZO1)
 AV = (gB+gm2/gpi2*gB)/(gB+ge2+go2+gm2/gpi2*gB)*AV1
 AV_DB = 20*log10(abs(AV))
 ZI=ZI1
 ZO=1/(go2+gm2/gpi2*gB+ge2+gB)
+
+
+%frequency response Vo(f)/Vi(f) in log scale with 10 points per decade, from 10Hz to 100MHz
+RE1=100;
+ZS=RS
+Zi=1/(j*(1e-3)*w)
+ZB= RB
+Zpi1=rpi1
+ZE1=RE1
+Zb=1/(j*(1e-3)*w)
+Zo1=ro1
+ZC= RC1
+Zpi2=1/gpi2
+ZE2=RE2
+Zo2= 1/go2
+Zo= 1/(j*(0.5e-3)*w)

@@ -35,6 +35,11 @@ Co emit2 out .5m
 RL out 0 8
 
 .op
+.measure tran vinmax MAX v(in2) from=0 to=0.2
+.measure tran voutmax MAX v(out) from=0 to=0.2
+.measure ac gainMAX MAX vdb(out)
+.measure ac lowercf WHEN vdb(out)=26.48
+.measure ac uppercf WHEN vdb(out)=26.48 CROSS=LAST
 .end
 
 .control
