@@ -25,11 +25,12 @@ gm2=vpa(32.827);
 
 
 
-ZSi=ZS+Zi
+
 ZE1b=1/((1/ZE1)+(1/Zb))
 ZE2o2=1/((1/ZE2)+(1/Zo2))
 
-GSI=1/ZSi
+GI=1/Zi
+GS=vpa(1/ZS)
 GB=vpa(1/ZB)
 Gpi1=vpa(1/Zpi1)
 GE1b=1/ZE1b
@@ -41,21 +42,22 @@ Go=1/Zo
 G8=vpa(1/8);
 
 
-A1 = [1, 0, 0, 0, 0, 0];
-A2 = [-GSI, GSI+GB+Gpi1, -Gpi1, 0,0 , 0];
-A3 = [0,gm1+Gpi1 ,-gm1-Gpi1-GE1b-Go1 , Go1, 0, 0];
-A4 = [0, gm1, -gm1-Go1, Go1+Gc+Gpi2,-Gpi2 , 0];
-A5 = [0, 0, 0,Gpi2+gm2 ,-Gpi2-gm2-GE2o2-Go , Go];
-A6 = [0 , 0, 0, 0, Go,-Go-G8 ];
+A1 = [1, 0, 0, 0, 0, 0,0];
+A2 = [0, GI+GB+Gpi1, -Gpi1, 0,0 , 0,-GI];
+A3 = [0,gm1+Gpi1 ,-gm1-Gpi1-GE1b-Go1 , Go1, 0, 0,0];
+A4 = [0, gm1, -gm1-Go1, Go1+Gc+Gpi2,-Gpi2 , 0,0];
+A5 = [0, 0, 0,Gpi2+gm2 ,-Gpi2-gm2-GE2o2-Go , Go,0];
+A6 = [0 , 0, 0, 0, Go,-Go-G8,0 ];
+A7 = [ -GS, -GI, 0, 0,0 , 0, GS+GI];
 
-A=[A1; A2; A3; A4; A5; A6];
-b = [vi; 0; 0; 0; 0; 0];
+A=[A1; A2; A3; A4; A5; A6; A7];
+b = [vi; 0; 0; 0; 0; 0; 0];
 
 v=A\b;
 
 printf('\nV6: \n\n');
 v(6)
-[N1, D1] = numden(v(6));
+[N1, D1] = numden(v(6))
 
 
 

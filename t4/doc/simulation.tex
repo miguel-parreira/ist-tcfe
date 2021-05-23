@@ -3,14 +3,14 @@
 
 \subsection{Operating Point Analysis}
 
+
 Table~\ref{tab:op} shows the simulated operating point results for the circuit
-under analysis. Compared to the theoretical analysis results, one notices the
-following differences: describe and explain the differences.
+under analysis.
 
 \begin{table}[h]
   \centering
   \begin{tabular}{|l|r|}
-    \hline    
+    \hline
     {\bf Name} & {\bf Value [A or V]} \\ \hline
     \input{../sim/op_tab}
   \end{tabular}
@@ -20,68 +20,53 @@ following differences: describe and explain the differences.
   \label{tab:op}
 \end{table}
 
-\lipsum[1-1]
 
 
 \subsection{Transient Analysis}
 
-Figure~\ref{fig:trans} shows the simulated transient analysis results for the
-circuit under analysis. Compared to the theoretical analysis results, one
-notices the following differences: describe and explain the differences.
+Figures~\ref{fig:transvin},~\ref{fig:transvo1} and ~\ref{fig:transvo2} show the simulated transient analysis results for the circuit under analysis.
 
 \begin{figure}[h] \centering
-\includegraphics[width=0.6\linewidth]{trans.eps}
-\caption{Transient output voltage}
-\label{fig:trans}
+\includegraphics[width=0.6\linewidth]{vin.eps}
+\caption{Transient input voltage}
+\label{fig:transvin}
 \end{figure}
 
-\lipsum[1-1]
+\begin{figure}[h] \centering
+\includegraphics[width=0.6\linewidth]{vo1.eps}
+\caption{Transient output voltage, Gain Stage}
+\label{fig:transvo1}
+\end{figure}
 
+\begin{figure}[h] \centering
+\includegraphics[width=0.6\linewidth]{vo2.eps}
+\caption{Transient output voltage}
+\label{fig:transvo2}
+\end{figure}
 
 
 \subsection{Frequency Analysis}
 
 \subsubsection{Magnitude Response}
 
-Figure~\ref{fig:acm} shows the magnitude of the frequency response for the
-circuit under analysis. Compared to the theoretical analysis results, one
-notices the following differences: describe and explain the differences.
+Figures~\ref{fig:MRGS} and ~\ref{fig:MROS} show the magnitude of the frequency response for the
+circuit under analysis.
 
 \begin{figure}[h] \centering
-\includegraphics[width=0.6\linewidth]{acm.eps}
-\caption{Magnitude response}
-\label{fig:acm}
+\includegraphics[width=0.6\linewidth]{vo1f.eps}
+\caption{Magnitude response, Gain Stage}
+\label{fig:MRGS}
 \end{figure}
-
-\lipsum[1-1]
-
-\subsubsection{Phase Response}
-
-Figure~\ref{fig:acp} shows the magnitude of the frequency response for the
-circuit under analysis. Compared to the theoretical analysis results, one
-notices the following differences: describe and explain the differences.
 
 \begin{figure}[h] \centering
-\includegraphics[width=0.6\linewidth]{acp.eps}
-\caption{Phase response}
-\label{fig:acp}
+\includegraphics[width=0.6\linewidth]{vo2f.eps}
+\caption{Magnitude response, Output Stage}
+\label{fig:MROS}
 \end{figure}
 
-\lipsum[1-1]
 
 \subsubsection{Input Impedance}
+The simulation gives an input impedance of $555.9097 \ohm$ which is very good compared to $R_{in}=100\ohm$ .
 
-Figure~\ref{fig:zim} shows the magnitude of the frequency response for the
-circuit under analysis. Compared to the theoretical analysis results, one
-notices the following differences: describe and explain the differences.
-
-\begin{figure}[h] \centering
-\includegraphics[width=0.6\linewidth]{zim.eps}
-\caption{Input impedance}
-\label{fig:zim}
-\end{figure}
-
-\lipsum[1-1]
-
-
-
+\subsubsection{Output Impedance}
+The simulation gives an output impedance of $4.2725 \ohm$ which is reasonable compared to $R_{L}=8\ohm$ .

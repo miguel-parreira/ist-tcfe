@@ -4,8 +4,8 @@ VT=25e-3;
 BFN=178.7;
 VAFN=69.7;
 RE1=100;
-RC1=1000;
-RB1=80000;
+RC1=400;
+RB1=74500;
 RB2=20000;
 VBEON=0.7;
 VCC=12;
@@ -51,7 +51,7 @@ ZO1 = 1/(1/ro1+1/RC1)
 %ouput stage
 BFP = 227.3;
 VAFP = 37.2;
-RE2 = 10;
+RE2 = 40;
 VEBON = 0.7;
 VI2 = VO1
 IE2 = (VCC-VEBON-VI2)/RE2
@@ -76,17 +76,76 @@ ZI=ZI1
 ZO=1/(go2+gm2/gpi2*gB+ge2+gB)
 
 
-%frequency response Vo(f)/Vi(f) in log scale with 10 points per decade, from 10Hz to 100MHz
-RE1=100;
-ZS=RS
-Zi=1/(j*(1e-3)*w)
-ZB= RB
-Zpi1=rpi1
-ZE1=RE1
-Zb=1/(j*(1e-3)*w)
-Zo1=ro1
-ZC= RC1
-Zpi2=1/gpi2
-ZE2=RE2
-Zo2= 1/go2
-Zo= 1/(j*(0.5e-3)*w)
+
+%function log
+function gain = funcf(f)
+  RE1= 100;
+  PI =  pi;
+  vi= 1e-2;
+  ZS= 100;
+  Zi=1/(j*(1e-3)*2*PI*f);
+  ZB=  15767.19577;
+  Zpi1= 458.46;
+  ZE1= 100;
+  Zb=1/(j*(1e-3)*2*PI*f);
+  Zo1= 7152.8;
+  ZC=  400;
+  Zpi2= 1/0.014007;
+  ZE2= 40;
+  Zo2=  1/0.0021396;
+  Zo= 1/(j*(0.5e-3)*2*PI*f);
+  gm1= 0.38978;
+  gm2= 3.1838;
+
+
+
+
+  ZE1b=1/((1/ZE1)+(1/Zb));
+  ZE2o2=1/((1/ZE2)+(1/Zo2));
+
+  GI=1/Zi;
+  GS= 1/ZS;
+  GB= 1/ZB;
+  Gpi1= 1/Zpi1;
+  GE1b=1/ZE1b;
+  Go1= 1/Zo1;
+  Gc= 1/ZC;
+  Gpi2= 1/Zpi2;
+  GE2o2= 1/ZE2o2;
+  Go=1/Zo;
+  G8= 1/8;
+
+
+  A1 = [1, 0, 0, 0, 0, 0,0];
+  A2 = [0, GI+GB+Gpi1, -Gpi1, 0,0 , 0,-GI];
+  A3 = [0,gm1+Gpi1 ,-gm1-Gpi1-GE1b-Go1 , Go1, 0, 0,0];
+  A4 = [0, gm1, -gm1-Go1, Go1+Gc+Gpi2,-Gpi2 , 0,0];
+  A5 = [0, 0, 0,Gpi2+gm2 ,-Gpi2-gm2-GE2o2-Go , Go,0];
+  A6 = [0 , 0, 0, 0, Go,-Go-G8,0 ];
+  A7 = [ -GS, -GI, 0, 0,0 , 0, GS+GI];
+
+  A=[A1; A2; A3; A4; A5; A6; A7];
+  b = [vi; 0; 0; 0; 0; 0; 0];
+
+  v=A\b;
+
+  gain=20*log10(abs(v(6))/vi);
+  %gain=abs(v(6));
+endfunction
+
+function [y] = func(x)
+  for i = 1:70
+    y(i)=funcf(x(i));
+  end
+endfunction
+
+
+
+
+F=logspace(1, 8, 70);
+f3 = figure ();
+semilogx(F,func(F))
+%fplot (funcf(F), 'r');
+xlabel ('f[Hz]');
+ylabel ('Gain');
+print (f3, 'gain.eps', '-depsc');
