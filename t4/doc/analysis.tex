@@ -1,65 +1,144 @@
 \section{Theoretical Analysis}
 \label{sec:analysis}
 
-In this section, the circuit shown in Figure~\ref{fig:rc} is analysed
-theoretically, in terms of its time and frequency responses.
+In this section, the eletrical device shown in Figure~\ref{fig:rc} is analysed
+theoretically to predict the output of the Gain Stage and Output Stage circuits.
 
-\section{Time response}
+\section{Operating Point}
 
-The circuit consists of a single V-R-C loop where a current $i(t)$ circulates. The
-voltage source $v_I(t)$ drives its input, and the output voltage $v_O(t)$ is taken from
-the capacitor terminals. Applying the Kirchhoff Voltage Law (KVL), a single
-equation for the single loop in the circuit can be written as
-
+\subsection{Gain Stage}
+The DC Analysis corresponds to a frequency of zero Hz which means that the capacitors are equivalent to an open circuit.
+For the bias circuit, it was considered the Thévenin’s equivalent with $R_{eq1}=R_{1}||R_{2}$ and $V_{eq1}=\frac{R_{2}}{R_{1}+R_{2}}\times V_{CC}$
+Using KVL we get:
 \begin{equation}
-  Ri(t) + v_O(t) = v_I(t).
+  V_{eq1} + R_{eq}\times I_{B1} + V_{BEON} + R_{E}\times I_{E1}  = 0
   \label{eq:kvl}
 \end{equation}
-
-Because $v_O$ is the voltage between capacitor C's plates, it is related to the
-current $i$ by
+From the transistor model:
 \begin{equation}
-  i(t) = C\frac{dv_O}{dt}.
+  I_{E1} = (1+\beta_{F})\times I_{B1}
+  \label{eq:IE}
 \end{equation}
 
-Hence, Equation~(\ref{eq:kvl}) can be rewritten as
 \begin{equation}
-  RC\frac{dv_O}{dt} + v_O(t) = v_I.
-  \label{eq:kvl2}
+  I_{C1} = \beta_{F}\times I_{B1}
+  \label{eq:IE}
 \end{equation}
 
-Equation~(\ref{eq:kvl2}) is a linear differencial equation whose solution is a
-superposition of a natural solution $v_{On}$ and a forced solution $v_{Of}$:
+Using the ohm's law and the KVL in the other loop we get the voltages:
+
+\input{tabela1.tex}
+
+Comparing the theoretical values with the simulation, they are satisfyingly close.
+\subsection{Output Stage}
+Using the same methods:
 
 \begin{equation}
-  v_O(t) = v_{On}(t) + v_{Of}(t).
-  \label{eq:vo_sol}
+  V_{I2} - V_{CC} + V_{EBON} + R_{E}\times I_{E}  = 0
+  \label{eq:kvl}
 \end{equation}
-
-As learned in the theory classes the natural solution is of the form
 \begin{equation}
-  v_{On}(t) = Ae^{-\frac{t}{RC}},
-  \label{eq:vo_nat}
+  V_{O} = V_{CC} - R_{E}\times I_{E}
+  \label{eq:VO}
 \end{equation}
-where $A$ is an integration constant.
 
-The forced solution is of the form given in Equation~(\ref{eq:vo_for}) and is
-illustrated in Figure~\ref{fig:forced}.
+We get the following results:
+
+\input{tabela2.tex}
+
+Comparing the theoretical values with the simulation, they are pleasantly close.
+
+\section{Gain}
+In the these and the following setions we are going to use the incremental model for the transistors and having in mind that the capacitors operate as approximately a short circuit for higher frequencies.
+\subsection{Gain Stage}
+Using another Thévenin’s equivalent for the source signal and the bias circuit, we get $R_{eq2}=R_{eq1}||R_{S}$ and  $v_{eq2}=\frac{R_{eq1}}{R_{eq1}+R_{S}}\times v_{I}$.
+Keeping in mind that the incremental parameters are given by $R_{\pi1}=\frac{\beta_{F}}{g_{m1}}$, $g_{m1}=\frac{I_{C}}{V_{T}}$  and $R_{o1}\approx \frac{V_{A}}{I_{C}}$
+
+And doing mesh analysis and making $R_{E}=0$(because of the bypass capacitor), the gain is given by:
+\begin{equation}
+  AV_{1}= \frac{R_{eq1}}{R_{eq1}+R_{S}}\times R_{C} \times \frac {R_{E} - g_{m1} R_{\pi1} R_{o1} }{(R_{o1}+R_{C}+R_{E})\times(R_{eq2}+R_{\pi1}+R_{E})+g_{m1} R_{E} R_{\pi1} R_{o1} - R_{E}^2}=41.626dB
+  \label{eq:Gain1}
+\end{equation}
+
+
+\subsection{Output Stage}
+Aplying KCl, we get directly:
 
 \begin{equation}
-  V_{Of}(t) = |\bar{V}_{Of}| cos(\omega t + \angle \bar{V}_{Of}),
-  \label{eq:vo_for}
+  AV_{2}= \frac{g_{m2}}{g_{\pi2}+g_{out}+g_{o2}+g_{m2}}=0.98724
+  \label{eq:Gain1}
 \end{equation}
 
-\lipsum[1-1]
+Where $g_{\pi2}=\frac{1}{R_\pi2}$, $g_{out}=\frac{1}{R_{out}}$ and $g_{o2}=\frac{1}{R_{o2}}$
+
+\subsection{Total Circuit}
+In this calculation the whole circuit is taken into consideration, simplifying the Gain Stage.
+\begin{equation}
+  AV= \frac{g_{B}+\frac{g_{m2}*g_{B}}{g_{\pi2}}}{g_{B}+g_{out}+g_{o2}+\frac{g_{m2}*g_{B}}{g_{\pi2}}} \times AV_{1}=41.173
+  \label{eq:Gain1}
+\end{equation}
 
 
-\begin{figure}[h] \centering
-\includegraphics[width=0.8\linewidth]{forced.eps}
-\caption{Forced sinusoidal response.}
-\label{fig:forced}
-\end{figure}
+
+\section{Input impedance}
+This is calculated by imposing a voltage in the imput terminals and measuring the current through it we get the imput impedance by dividing them $Z_{I}=\frac{v_{i}}{I}$.
+\subsection{Gain Stage}
+Doing mesh analysis and solving for the wanted current, we get($R_E=0$):
+
+\begin{equation}
+  Z_{I1} = \frac{1}{(\frac{1}{R_{B}}+\frac{1}{((((r_{o1}+R_{C1}+R_{E})*(r_{\pi1}+R_{E})+g_{m1}*R_{E}*r_{o1}*r_{\pi1} - R_{E}^2)/(r_{o1}+R_{C1}+R_{E})))}}=445.51\si{\ohm}
+  \label{eq:imputimpe1}
+\end{equation}
+
+This value is sort of compatible because $Z_{I1}$ is 4.5x greater than $R_{S}$.
+
+\subsection{Output Stage}
+Using the gain expression and doin a simple ohm's law, we get
+
+\begin{equation}
+  Z_{I2} = \frac{(g_{m2}+g_{\pi2}+g_{o2}+g_{out})}{(g_{\pi2})(g_{\pi2}+g_{o2}+g_{e2})}=5595.5\si{\ohm}
+  \label{eq:imputimpe2}
+\end{equation}
+
+\subsection{Total Circuit}
+We considered it equal to $Z_{I}=Z_{I1}=445.51\si{\ohm}$.
+
+\section{Output impedance}
+This is calculated by shutting off the imput source and imposing a voltage in the output terminals and measuring the current through it, we get the output impedance by dividing them $Z_{O}=\frac{v_{O}}{I}$
+
+\subsection{Gain Stage}
+
+Looking at the circuit we notice that $v_{\pi1}=0$ which means that the impedance seen by the test source is simply:
+
+\begin{equation}
+    Z_{O1} = \frac{1}{\frac{1}{R_{o1}}+\frac{1}{R_{C}}}=378.82\si{\ohm}
+  \label{eq:imputimpe2}
+\end{equation}
+
+This value is compatible with $Z_{I2}$ because $Z_{I2}$ is much greater.
+
+\subsection{Output Stage}
+Applying KCL and noticing that $v_{\pi2}=-v_{o}$:
+\begin{equation}
+    Z_{O2} = \frac{1}{(g_{m2}+g_{\pi2}+g_{o2}+g_{out})}=0.31008\si{\ohm}
+  \label{eq:imputimpe2}
+\end{equation}
+
+\subsection{Total Circuit}
+
+\begin{equation}
+    Z_{O} = \frac{1}{g_{o2}+\frac{g_{m2}*g_{B}}{g_{\pi2}}+g_{out}+g_{B}}=1.8718\si{\ohm}
+  \label{eq:imputimpe2}
+\end{equation}
+
+The total output impedance is compatible enough to connect to an $8\si{\ohm}$ load.
 
 \section{Frequency response}
 
-\lipsum[1-1]
+Using the complete incremental model  for the circuit (with the capacitors on), applying the node method and solving ($AV=\frac{V_{o}}{V_{i}}$) for a $10Hz$ frquency up to $100MHz$, we get the following results:
+
+\begin{figure}[h] \centering
+\includegraphics[width=0.6\linewidth]{gain.eps}
+\caption{Frequency Response}
+\label{fig:Freqresp}
+\end{figure}

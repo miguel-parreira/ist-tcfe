@@ -20,6 +20,12 @@ VE1=RE1*IE1
 VO1=VCC-RC1*IC1
 VCE=VO1-VE1
 
+tabela1=fopen('tabela1.tex', 'w+');
+fprintf(tabela1, ' \\begin{table}[h] \n \\label{tab:tables} \n \\begin{center} \n \\begin{tabular}{|c|c|} \n  \\hline \n   Operating Point & Value\\hspace{1mm}(V/A)\\\\ \n  \\hline \n  $I_{B1}$ & %.15f   \\\\ \n   \\hline \n  $I_{C1}$ & %.15f \\\\ \n   \\hline \n  $I_{E1}$ & %.15f \\\\ \n   \\hline \n  $V_{E1}$ & %.15f \\\\ \n   \\hline \n  $V_{O1}$ & %.15f \\\\ \n   \\hline \n  $V_{CE}$ & %.15f \\\\ \n   \\hline \n  \\end{tabular} \n \\caption{Solutions to Node Analysis Method} \n \\label{table:tab1} \n \\end{center} \n \\end{table} \n ' , IB1, IC1, IE1, VE1, VO1, VCE);
+fclose(tabela1);
+
+
+
 
 gm1=IC1/VT
 rpi1=BFN/gm1
@@ -57,6 +63,10 @@ VI2 = VO1
 IE2 = (VCC-VEBON-VI2)/RE2
 IC2 =( BFP/(BFP+1))*IE2
 VO2 = VCC - RE2*IE2
+
+tabela2=fopen('tabela2.tex', 'w+');
+fprintf(tabela2, ' \\begin{table}[h] \n \\label{tab:tables} \n \\begin{center} \n \\begin{tabular}{|c|c|} \n  \\hline \n   Operating Point  & Value \\hspace{1mm}(V/A)\\\\ \n  \\hline \n  $V_{I2}$ & %.15f   \\\\ \n   \\hline \n  $I_{E2}$ & %.15f \\\\ \n   \\hline \n  $I_{C2}$ & %.15f \\\\ \n   \\hline \n  $V_{E2}$ & %.15f \\\\ \n   \\hline \n   \\end{tabular} \n \\caption{Solutions to Node Analysis Method} \n \\label{table:tab2} \n \\end{center} \n \\end{table} \n ' , VI2, IE2, IC2, VO2);
+fclose(tabela2);
 
 gm2 = IC2/VT
 go2 = IC2/VAFP

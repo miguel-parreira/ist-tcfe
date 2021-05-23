@@ -1,4 +1,4 @@
-all: ngspice.log ngspicestage1.log ngspicezout.log
+all: ngspice.log  ngspicezout.log
 	$(eval NGSFIGS=$(shell grep _FIG $< | sed 's/_FIG//g' | sed ':a;N;$!ba;s/\n/ /g'))
 	$(eval NGSFIGPS=$(addsuffix .ps, $(NGSFIGS)))
 	$(foreach i, $(NGSFIGPS), ps2eps -B $i;)
@@ -6,9 +6,6 @@ all: ngspice.log ngspicestage1.log ngspicezout.log
 	$(foreach i, $(NGSTABS), sed -n '/^$i_TAB/,/^$i_END/{p;/^$i_END/q}' $< | grep -v $i_TAB | grep -v $i_END | grep -v '#' | sed 's/\=/\&/g' | sed 's/$$/\\\\ \\hline/g' > $i_tab.tex;)
 
 ngspice.log: ../sim/t4.net
-	ngspice -b $< -o $@
-
-ngspicestage1.log: ../sim/stage1.net
 	ngspice -b $< -o $@
 
 ngspicezout.log: ../sim/zout.net
